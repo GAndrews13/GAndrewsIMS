@@ -19,6 +19,15 @@ public class Product {
     private int productRecommendedLevel;
     private Double productCost;
     private int currentInOrder;
+    private String status;
+
+    public String Status() {
+        return status;
+    }
+
+    public void Status(String status) {
+        this.status = status;
+    }
 
     //<editor-fold desc="Variable Manipulators">
     //<editor-fold desc="Getters">

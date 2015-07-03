@@ -12,29 +12,36 @@ package NBGCoreSystems;
 public class ProductOrderLine {
     private Product product;
     private int quantity;
-    private int totalCost;
+    private double totalCost;
     
-    public Product getProduct() {
+    public Product Product() {
         return product;
     }
 
-    public int getQuantity() {
+    public int Quantity() {
         return quantity;
     }
 
-    public int getTotalCost() {
+    public double TotalCost() {
+        CalculateTotalCost();
         return totalCost;
     }
 
-    public void setProduct(Product product) {
+    public void Product(Product product) {
         this.product = product;
     }
 
-    public void setQuantity(int quantity) {
+    public void Quantity(int quantity) {
         this.quantity = quantity;
+        CalculateTotalCost();
     }
 
-    public void setTotalCost(int totalCost) {
+    private void TotalCost(double totalCost) {
         this.totalCost = totalCost;
+    }
+    
+    private void CalculateTotalCost()
+    {
+        TotalCost(product.ProductCost()*quantity);
     }
 }
