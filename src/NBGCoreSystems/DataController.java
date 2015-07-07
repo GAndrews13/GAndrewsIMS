@@ -44,6 +44,7 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
             }
             CreateGeneralConfigFile();
             ReadConfigFile();
+<<<<<<< HEAD
         }
         // <editor-comment desc="General Variables">
         private String programDirectory = System.getProperty("user.dir"); 
@@ -79,6 +80,33 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
         {
             return productDatabase();
         }
+=======
+        }
+        // <editor-comment desc="General Variables">
+        private String programDirectory = System.getProperty("user.dir"); 
+        public String ProgramDirectory() {
+            return programDirectory;
+        }
+        private String configFileName = "config.NBG";
+
+        private char splitCharacter = '|';
+
+        private String databaseControllerIP;
+        public String DatabaseControllerIP() {
+            return databaseControllerIP;
+        }
+        public void DatabaseControllerIP(String databaseControllerIP) {
+            this.databaseControllerIP = databaseControllerIP;
+        }
+
+        private int databaseControllerPort = 3306;//62825;
+        public int DatabaseControllerPort() {
+            return databaseControllerPort;
+        }
+        public void DatabaseControllerPort(int databaseControllerPort) {
+            this.databaseControllerPort = databaseControllerPort;
+        }
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
     // </editor-comment desc="General Variables">
 
 
@@ -90,6 +118,7 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
             PrintWriter writer = null;
             try
             {
+<<<<<<< HEAD
                 writer = new PrintWriter(programDirectory + "\\" + configFileName, "UTF-8");
                 //writer = new PrintWriter("C:\\\\users\\Gareth\\desktop\\" + configFileName, "UTF-8");
                 try
@@ -104,6 +133,22 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
                 {
                     MessageHandling.ErrorHandle("CGCF02", e, Level.WARNING);
                 }
+=======
+                //writer = new PrintWriter(programDirectory + "\\" + configFileName, "UTF-8");
+                writer = new PrintWriter("C:\\\\users\\Gareth\\desktop\\" + configFileName, "UTF-8");
+                try
+                {
+                    //TOOD Add custom config file data
+                    writer.println("<STARTCONFIG>");
+                    writer.println("databaseControllerIP"+splitCharacter+"localhost");
+
+                    writer.println("<ENDCONFIG>");
+                }
+                catch (Exception e)
+                {
+                    MessageHandling.ErrorHandle("CGCF02", e, Level.WARNING);
+                }
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
                 writer.flush();
             }
             catch (Exception e)
@@ -117,6 +162,7 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
         }
 
         public void ReadConfigFile()
+<<<<<<< HEAD
         {
             try
             {
@@ -172,12 +218,49 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
         // </editor-comment desc="Configuration file">
         //<editor-comment desc= "Remote methods">
         public void UpdateProduct(Product inProduct)
+=======
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
         {
             for(int i = 0; i<productDatabase.size();i++)
             {
+<<<<<<< HEAD
                 if(productDatabase.get(i).ProductID() == inProduct.ProductID())
                 {
                     productDatabase.set(i, inProduct);
+=======
+                FileReader fr = new FileReader(programDirectory + "\\" + configFileName);
+                BufferedReader textReader = new BufferedReader(fr);
+                List<String> text = new ArrayList<String>();
+                boolean ableToRead = true;
+                while (ableToRead == true)
+                {
+                    //FIXME Code not splitting text correctly
+                    String read = textReader.readLine();
+                    String[] splitArray = new String[0]; 
+                    String splitString = new String();
+                    splitString += splitCharacter;
+                    if(read.contains(splitString))
+                    {
+                        splitArray = read.split(read, splitCharacter);
+
+                        //The title of the config line
+                        //Index 1 contains the data that needs to be acted on
+                        //read = splitArray[0];
+                        System.out.println(read.toString());
+                    }
+                    switch(read.trim())
+                            {
+                                case "<ENDCONFIG>":
+                                    ableToRead = false;
+                                break;
+                                case "databaseControllerIP":
+                                    databaseControllerIP = splitArray[3];
+                                    break;
+                                case "databaseControllerPort":
+                                    databaseControllerPort = Integer.parseInt(splitArray[3]);
+                                    break;
+                            }
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
                 }
             }
         }
@@ -189,10 +272,14 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
         {
             for(int i = 0; i<productDatabase.size();i++)
             {
+<<<<<<< HEAD
                if(productDatabase.get(i).ProductID() == inID)
                {
                    return productDatabase.get(i);
                }
+=======
+                MessageHandling.ErrorHandle("DCRCF01", e, Level.SEVERE);
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
             }
             return null;
         }
@@ -200,7 +287,23 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
         {
             return productDatabase;
         }
+<<<<<<< HEAD
         
+=======
+          /**
+         * Returns the date time in a readable format
+         * @return 
+         */
+        public static String DateTime()
+        {
+            Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd HH:MM:SS");
+            return dateFormat.format(date);
+        }
+        // </editor-comment desc="Configuration file">
+        //<editor-comment desc= "Remote methods">
+
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
         //</editor-comment desc= "Remote methods">
     
 }

@@ -23,7 +23,11 @@ public class Product implements Serializable {
     private int currentInOrder;
     private ProductStatus ProductStatus;
 
+<<<<<<< HEAD
     public ProductStatus ProductStatus() {
+=======
+    public ProductStatus Status() {
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
         return ProductStatus;
     }
 
@@ -108,12 +112,36 @@ public class Product implements Serializable {
      * @param inProductCost 
      */
     public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
+<<<<<<< HEAD
+=======
     {
         ProductID(inProductID);
         ProductName(inProductName);
         ProductStock(inProductStock);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
+        ProductStatus(ProductStatus.InStock);
+    }
+    
+    /**
+     * Create a full product including an ID and status
+     * @param inProductID
+     * @param inProductName
+     * @param inProductStock
+     * @param inProductCriticalLevel
+     * @param inProductRecommendedLevel
+     * @param inProductCost 
+     * @param inStatus
+     */
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus)
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
+    {
+        ProductID(inProductID);
+        ProductName(inProductName);
+        ProductStock(inProductStock);
+        ProductRecommendedLevel(inProductRecommendedLevel);
+        ProductCost(inProductCost);
+<<<<<<< HEAD
         ProductStatus(ProductStatus.InStock);
     }
     
@@ -137,6 +165,11 @@ public class Product implements Serializable {
         ProductStatus(inStatus);
     }
     
+=======
+        ProductStatus(inStatus);
+    }
+    
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea
     /**
      * Create a product and retrieve the ID from the database
      */

@@ -115,6 +115,7 @@
                       <Component id="jScrollPane1" min="-2" pref="501" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                           <Component id="label2" min="-2" pref="113" max="-2" attributes="0"/>
                           <Component id="jButton4" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -146,6 +147,44 @@
                           <Component id="textbox_ProductID" min="-2" pref="122" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       </Group>
+=======
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="label2" min="-2" pref="113" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="textbox_ProductID" min="-2" pref="94" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="label4" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                                  <Component id="label5" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                                  <Component id="label3" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="textbox_ProductStock" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textbox_ProductCost" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="textbox_ProductStatus" alignment="0" pref="93" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="button1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jButton4" alignment="0" pref="229" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="label6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="label7" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="textbox_ProductCost2" pref="71" max="32767" attributes="0"/>
+                                  <Component id="textbox_ProductCost1" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="label1" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                          <Component id="textbox_ProductName" alignment="0" min="-2" pref="226" max="-2" attributes="0"/>
+                          <Component id="button2" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                   </Group>
               </Group>
             </DimensionLayout>
@@ -153,6 +192,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" pref="489" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                       <Component id="label2" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -162,6 +202,20 @@
                                   <Component id="label1" min="-2" pref="39" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+=======
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="textbox_ProductID" max="32767" attributes="0"/>
+                          <Component id="label2" min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="label1" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="textbox_ProductName" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="label4" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
                                   <Component id="textbox_ProductStock" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -174,6 +228,7 @@
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="textbox_ProductStatus" max="32767" attributes="0"/>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                           <Component id="label3" pref="39" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -189,11 +244,33 @@
                               <Component id="textbox_CriticalStock" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+=======
+                          <Component id="label3" min="-2" pref="39" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="textbox_ProductCost1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="label6" alignment="1" min="-2" pref="39" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="textbox_ProductCost2" min="-2" pref="28" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="label7" min="-2" pref="39" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="button2" min="-2" max="-2" attributes="0"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="button1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jButton4" min="-2" pref="38" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -201,6 +278,8 @@
                           <Component id="textbox_ProductID" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="448" max="32767" attributes="0"/>
                       </Group>
+=======
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                   </Group>
               </Group>
             </DimensionLayout>
@@ -222,13 +301,31 @@
                         <Column editable="false" title="Stock" type="java.lang.Integer"/>
                         <Column editable="false" title="Cost" type="java.lang.Double"/>
                         <Column editable="false" title="Status" type="java.lang.String"/>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                         <Column editable="false" title="Required Level" type="java.lang.Integer"/>
                         <Column editable="false" title="Critical Level" type="java.lang.Integer"/>
+=======
+                        <Column editable="false" title="Recommended Level" type="java.lang.Integer"/>
+                        <Column editable="false" title="Critical Level" type="java.lang.Object"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
+=======
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -249,6 +346,7 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -259,6 +357,8 @@
                           <Renderer/>
                         </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+=======
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -331,9 +431,12 @@
                   <Font name="Dialog" size="18" style="1"/>
                 </Property>
               </Properties>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textbox_ProductIDActionPerformed"/>
               </Events>
+=======
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
             </Component>
             <Component class="java.awt.TextField" name="textbox_ProductStock">
               <Properties>
@@ -354,7 +457,11 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="1"/>
                 </Property>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                 <Property name="label" type="java.lang.String" value="Confirm Adjustments"/>
+=======
+                <Property name="label" type="java.lang.String" value="Clear Fields"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
               </Properties>
             </Component>
             <Component class="java.awt.Choice" name="textbox_ProductStatus">
@@ -371,7 +478,11 @@
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                   <Font name="Tahoma" size="14" style="0"/>
+=======
+                  <Font name="Dialog" size="14" style="1"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
                 </Property>
                 <Property name="text" type="java.lang.String" value="Create New Product"/>
               </Properties>
@@ -384,7 +495,18 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="3"/>
                 </Property>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                 <Property name="text" type="java.lang.String" value="Critical Stock:"/>
+=======
+                <Property name="text" type="java.lang.String" value="Recommended Level:"/>
+              </Properties>
+            </Component>
+            <Component class="java.awt.TextField" name="textbox_ProductCost1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="18" style="1"/>
+                </Property>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
               </Properties>
             </Component>
             <Component class="java.awt.Label" name="label7">
@@ -392,21 +514,37 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="14" style="3"/>
                 </Property>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
                 <Property name="text" type="java.lang.String" value="Required Stock:"/>
               </Properties>
             </Component>
             <Component class="java.awt.TextField" name="textbox_CriticalStock">
+=======
+                <Property name="text" type="java.lang.String" value="Critical Level:"/>
+              </Properties>
+            </Component>
+            <Component class="java.awt.TextField" name="textbox_ProductCost2">
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="1"/>
                 </Property>
               </Properties>
             </Component>
+<<<<<<< HEAD:src/Interfaces/InventoryManagerScreen.form
             <Component class="java.awt.TextField" name="textbox_requiredStock">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="1"/>
                 </Property>
+=======
+            <Component class="java.awt.Button" name="button2">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="1"/>
+                </Property>
+                <Property name="label" type="java.lang.String" value="Confirm Adjustments"/>
+>>>>>>> a0c3eb2ebd5e1f608d31ece6bce876d283d711ea:src/Interfaces/InventoryManagerScreen.form
               </Properties>
             </Component>
           </SubComponents>
