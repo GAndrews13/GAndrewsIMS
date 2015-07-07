@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nbgardens.Interfaces;
+package Interfaces;
 
+import NBGCoreSystems.MessageHandling;
 import nbgardens.DatabaseCentre;
 import nbgardens.DatabaseCentre;
 
@@ -148,7 +149,7 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here: //TEST OUT CODE FOR SENDING MESSAGES
-       dac.Test();
+       
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
@@ -158,7 +159,14 @@ public class InitialScreen extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        dbc = new DatabaseCentre();
+        try
+        {
+            dbc = new DatabaseCentre();
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("JB5A01",e);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -3,6 +3,8 @@ package NBGCoreSystems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.io.*;
+
 /*
 package NBGCoreSystems;
 
@@ -10,7 +12,7 @@ package NBGCoreSystems;
  *Contains all relevant information that will be stored about products
  * @author gandrews
  */
-public class Product {
+public class Product implements Serializable {
 
     private int productID;
     private String productName;
@@ -19,18 +21,19 @@ public class Product {
     private int productRecommendedLevel;
     private Double productCost;
     private int currentInOrder;
-    private String status;
+    private ProductStatus ProductStatus;
 
-    public String Status() {
-        return status;
+    public ProductStatus ProductStatus() {
+        return ProductStatus;
     }
 
-    public void Status(String status) {
-        this.status = status;
+    public void ProductStatus(ProductStatus inStatus) {
+        this.ProductStatus = inStatus;
     }
 
     //<editor-fold desc="Variable Manipulators">
     //<editor-fold desc="Getters">
+    
     public int ProductID() {
         return productID;
     }
@@ -104,23 +107,46 @@ public class Product {
      * @param inProductRecommendedLevel
      * @param inProductCost 
      */
-    public void Create(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
     {
         ProductID(inProductID);
         ProductName(inProductName);
         ProductStock(inProductStock);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
+        ProductStatus(ProductStatus.InStock);
     }
+    
+    /**
+     * Create a full product including an ID and status
+     * @param inProductID
+     * @param inProductName
+     * @param inProductStock
+     * @param inProductCriticalLevel
+     * @param inProductRecommendedLevel
+     * @param inProductCost 
+     * @param inStatus
+     */
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus)
+    {
+        ProductID(inProductID);
+        ProductName(inProductName);
+        ProductStock(inProductStock);
+        ProductRecommendedLevel(inProductRecommendedLevel);
+        ProductCost(inProductCost);
+        ProductStatus(inStatus);
+    }
+    
     /**
      * Create a product and retrieve the ID from the database
      */
-    public void Create(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
+    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
     {
         ProductName(inProductName);
         ProductStock(inProductStock);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
+        ProductStatus(ProductStatus.LowStock);
     }
     /**
      * Creates a new product from an object array
@@ -183,12 +209,13 @@ public class Product {
      */
     public Object[] PrepareForTransmit()
     {
-        Object[] returner = new Object[5];
+        Object[] returner = new Object[6];
         returner[0] = ProductID();
         returner[1] = ProductName();
         returner[2] = ProductStock();
         returner[3] = ProductCriticalLevel();
         returner[4] = ProductRecommendedLevel();
+        returner[5] = ProductStatus;
         return returner;
     }
     

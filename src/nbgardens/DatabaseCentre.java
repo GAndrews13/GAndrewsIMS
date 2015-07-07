@@ -2,10 +2,21 @@ package nbgardens;
 import NBGCoreSystems.DataController;
 import NBGCoreSystems.MessageHandling;
 import NBGCoreSystems.MessageHandling;
+import NBGCoreSystems.Product;
+import NBGCoreSystems.ProductStatus;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.*; 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,6 +24,7 @@ import java.net.*;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 //
@@ -20,7 +32,8 @@ import java.util.logging.Level;
  *
  * @author gandrews
  */
-public class DatabaseCentre implements Runnable {
+public class DatabaseCentre  extends UnicastRemoteObject
+implements NBGCoreSystems.DatabaseRemoteInterface {
     
     /**
      * Used to keep track of the IP's connected to the database manager
@@ -38,21 +51,37 @@ public class DatabaseCentre implements Runnable {
     public void ServerPort(int serverPort) {
         this.serverPort = serverPort;
     }
+    static String databaseURL = "jdbc:mysql://Localhost/nbgdatabase";
+    public void databaseURL(String inDatabaseAddress)
+    {
+        databaseURL = "jdbc:mysql://"+inDatabaseAddress+"/nbgdatabase";
+    }
+    public String databaseURL()
+    {
+        return databaseURL;
+    }
+    static final String databaseDriver = "com.mysql.jdbc.Driver";
+    //TODO add various levels of editability based on rights and user access patterns
+    static String databaseUsername = "mUser";
+    static String databasePassword = "password";
+    private Connection conn;
+    private Statement statement;
     
+    private List<Product> productDatabase = new ArrayList<Product>();
     //<editor-comment desc="Constructors">
     /**
      * Default Constructor for the database
      */
-    public DatabaseCentre()
+    public DatabaseCentre () throws RemoteException
     {
         try
         {
-            System.out.println("Database Centre Initalized");
-            avaliableSocket = new ServerSocket(serverPort);
+            //System.out.println("Database Centre Initalized");
+            //avaliableSocket = new ServerSocket(serverPort);
             //Relocate to appropiate area within code
-            String threadName = NBGCoreSystems.DataController.DateTime();
-            Thread t = new Thread(this,threadName);  
-            t.start();
+            //String threadName = NBGCoreSystems.DataController.DateTime();
+            //Thread t = new Thread(this,threadName);  
+            //t.start();
         }
         catch (Exception e)
         {
@@ -60,83 +89,232 @@ public class DatabaseCentre implements Runnable {
         }
     }
     //</editor-comment desc="Constructors">
-
+    
     /**
-     * The method which runs when a thread of this class is created
+     * creates a connection to the database
      */
-    @Override
-    public void run() {
-        RecieveRequests();
+    public void createConnection()
+    {
+        try
+	{
+            Class.forName(databaseDriver);
+            conn = DriverManager.getConnection(databaseURL,databaseUsername,databasePassword);
+            System.out.println("Connection To database created");
+	}
+	catch (Exception e)
+	{
+            MessageHandling.ErrorHandle("DBCCC01", "Database Connection failed", e, Level.SEVERE);
+	}
     }
     
     /**
-     * Enums outlining possible request types
+     * Disconnects from the database
      */
-    public enum requestTypes{
-        READING,CREATING,UPDATING,STATECHANGE
-    }
-    /**
-     * Sends the request to a database
-     */
-    public void SendRequest()
-    {
-        
-    }
-    /**
-     * Recieves with the request from a remote connection
-     */
-    public void RecieveRequests()
+    public void closeConnection()
     {
         try
         {
-            System.out.println("Starting to listen");
-            Socket connectionSocket = avaliableSocket.accept();
-            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
-            DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());
-            //Read in data from the client
-            String clientRecievedMessage = inFromClient.readLine();
-            HandleRequest(clientRecievedMessage, connectionSocket.getRemoteSocketAddress().toString());
-            System.out.println("Request Recieved from: " + connectionSocket.getRemoteSocketAddress().toString() + ". Now starting again");
+            conn.close();
         }
         catch (Exception e)
         {
-            MessageHandling.ErrorHandle("DBCRR01", e, Level.SEVERE);
+            MessageHandling.ErrorHandle("DBCCC02", "Closing Database Connection failed", e, Level.SEVERE);
         }
     }
-    /**
-     * Uses the requests to perform the appropiate actions
-     */
-    public void HandleRequest(String inMessage, String inIP)
+    
+    public void UpdateProductSQL(Product inProduct)
     {
-        System.out.println("Message recieved: " + inMessage);
-        MessageHandling.DatabaseLog(inMessage, inIP);
-        //TODO add message handling and improve efficiancy
-        String[] messageBreakDown = inMessage.split(" ");
-        for(int i = 0; i< messageBreakDown.length;i++)
+	try
+	{
+            String updateString = String.format(
+                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,sinceLastPurchase=%s,currentInOrder=%s",
+                inProduct.ProductName(),
+                inProduct.ProductStock(),
+                inProduct.ProductCriticalLevel(),
+                inProduct.ProductRecommendedLevel(),
+                inProduct.ProductCost(),
+                inProduct.CurrentInOrder(),
+                inProduct.Status());
+            String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
+            UpdateSQLSubmit("product",updateString, updateConditions);
+	}
+	catch (Exception e)
+	{
+            MessageHandling.ErrorHandle("BDCUP01", e);
+	}
+    }
+    /**
+     * Generate update method formatting for SQL update requests
+     * @param inTable
+     * @param inObject
+     */
+    private void UpdateSQLSubmit(String inTable, String inRequest, String inCondition)
+    {
+    	createConnection();
+	try
+	{
+            statement = conn.createStatement();
+            String updateString = String.format("UPDATE %s SET %s WHERE %s; ", inTable, inRequest, inCondition);
+            statement.executeUpdate(updateString);
+	}
+	catch (Exception e)
+	{
+            MessageHandling.ErrorHandle("DBCUSQL01", "Unable to send Update request", e, Level.ALL);
+	}
+	closeConnection();
+    }
+    
+    /**
+     * Creates a new product in the database
+     */
+    public void CreateProductSQL(Product inProduct)
+	{
+		createConnection();
+		try
+		{
+			statement = conn.createStatement();
+		}
+		catch (Exception e)
+		{
+			MessageHandling.ErrorHandle("DBCCNP01", "Unable to create SQL Statement", e, Level.ALL);
+		}
+                //TODO
+		String defaultString = String.format(
+                "\"%s\",%s,%s,%s,%s,%s,%s",
+                inProduct.ProductName(),
+                inProduct.ProductStock(),
+                inProduct.ProductCriticalLevel(),
+                inProduct.ProductRecommendedLevel(),
+                inProduct.ProductCost(),
+                inProduct.CurrentInOrder(),
+                inProduct.Status());
+		try
+		{
+			statement.executeUpdate("INSERT INTO product (ProductName,Stock,RequiredStock,CriticalLevel,Cost,currentInOrder,ProductStatus) VALUE " + defaultString);
+		}
+		catch (Exception e)
+		{
+			MessageHandling.ErrorHandle("DBCCNP02", "Unable to push update to database", e, Level.ALL);
+		}
+                finally
+                {
+                    closeConnection(); 
+                }
+    }
+    
+    /**
+     * Reads all products from the database
+     */
+    public void readProductEntrysSQL()
+    {
+	createConnection();
+	try
+	{
+            statement = conn.createStatement();
+	}
+	catch (Exception e)
+	{
+            MessageHandling.ErrorHandle("DBCRA01", "Error reading from database", e, Level.SEVERE);
+	}
+        String defaultString = "SELECT ProductID, ProductName, Stock, RequiredStock, CriticalLevel, Cost, sinceLastPurchase, currentInOrder FROM Product";
+        try
         {
-            switch(messageBreakDown[i])
+            ResultSet results = statement.executeQuery(defaultString);
+            while(results.next())
             {
-                case "":
-                    break;
-                case "TEST":
-                    testHandle();
-                    break;
+                int prodID = results.getInt("ProductID");
+		String prodName = results.getString("ProductName");
+		int prodStock = results.getInt("Stock");
+		int prodReqStock = results.getInt("RequiredStock");
+		int prodCriticalLevel = results.getInt("CriticalLevel");
+		int prodCost = results.getInt("Cost");
+                String prodStatusString = results.getString("productStatus"); 
+                ProductStatus prodStatus;
+                switch(prodStatusString)
+                {
+                    case "InStock":
+                        prodStatus = ProductStatus.InStock;
+                        break;
+                    case "Discontinued":
+                        prodStatus = ProductStatus.Discontinued;
+                        break;
+                    case "LowStock":
+                        prodStatus = ProductStatus.LowStock;
+                        break;
+                    default:
+                        prodStatus = ProductStatus.LowStock;
+                        break;
+                }
+                
+                Product tempProduct = new Product(prodID,prodName,prodStock,prodCriticalLevel,prodReqStock,prodCost,prodStatus);
+                productDatabase.add(tempProduct);
+                
             }
+	}
+	catch (Exception e)
+	{
+            MessageHandling.ErrorHandle("DBCRA02", "Error creating new product", e, Level.SEVERE);
         }
+    closeConnection();
     }
-    /**
-     * A method used for testing a connection and the servers capability for handling requests
-     */
-    public void testHandle()
-    {
-        System.out.println("TEST Message acknowledged");
-        MessageHandling.GeneralLog("DCTH01", "Test Completed", "Test Completed");
-    }
+    
     /**
      * Sends the requested alert to the desired connected users
      */
     public void SendAlert(ArrayList<String> inDesiredIP, String inAlertMessage)
     {
         
+    }
+    
+    //TODO add SQL
+    public List<Product> ReadAllProducts() throws RemoteException
+    {
+        return productDatabase;
+    }
+    
+    public Product ReadProduct(int inID) throws RemoteException
+    {
+        Product returnProduct = null;
+        for(int i = 0; i < productDatabase.size();i++)
+        {
+            if(productDatabase.get(i).ProductID()==inID)
+            {
+                returnProduct = productDatabase.get(i);
+            }
+        }
+        return returnProduct;
+    }
+    
+    public void CreateProduct(Product inProduct) throws RemoteException
+    {
+        CreateProductSQL(inProduct);
+    }
+    
+    public String ChangeState(Product inProduct) throws RemoteException
+    {
+        String returnMessage = "";
+        return returnMessage;
+    }
+    
+    public void UpdateProduct(Product inProduct) throws RemoteException
+    {
+        try
+        {
+                String defaultString = String.format(
+                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,sinceLastPurchase=%s,currentInOrder=%s",
+                inProduct.ProductName(),
+                inProduct.ProductStock(),
+                inProduct.ProductCriticalLevel(),
+                inProduct.ProductRecommendedLevel(),
+                inProduct.ProductCost(),
+                inProduct.CurrentInOrder(),
+                inProduct.Status());
+		String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
+		UpdateSQLSubmit("product",defaultString, updateConditions);
+		}
+		catch (Exception e)
+		{
+                    MessageHandling.ErrorHandle("BDCUP01", "Error updating product", e, Level.SEVERE);
+		}
     }
 }
