@@ -12,40 +12,27 @@ import java.util.List;
  *
  * @author Gareth
  */
-public interface DatabaseRemoteInterface {
+public interface DatabaseRemoteInterface extends Remote {
+
+
     /**
      * Returns all database information
      */
-    public interface ReadAllProducts extends Remote
-    {
         public List<Product> ReadAllProducts();
-    }
     /**
      * Returns a certain products details
      */
-    public interface ReadProduct extends Remote
-    {
         public Product ReadProduct(int inID);
-    }
     /**
      * Creates a new product
      */
-    public interface CreateProduct extends Remote
-    {
         public void CreateProduct(Product inProduct);
-    }
     /**
      * Changes the state of a product
      */
-    public interface ChangeState extends Remote
-    {
-        public void UpdateProduct(Product inProduct);
-    }
+        //public void UpdateState(Product inProduct);
     /**
      * Updates a products details after being changed
      */
-    public interface UpdateProduct extends Remote
-    {
         public void UpdateProduct(Product inProduct);
-    }
 }

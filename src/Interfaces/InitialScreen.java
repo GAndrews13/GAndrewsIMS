@@ -5,7 +5,11 @@
  */
 package nbgardens.Interfaces;
 
+import NBGCoreSystems.DatabaseRemoteInterface;
 import NBGCoreSystems.MessageHandling;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import nbgardens.DatabaseCentre;
 import nbgardens.DatabaseCentre;
 
@@ -161,8 +165,11 @@ public class InitialScreen extends javax.swing.JFrame {
         // TODO add your handling code here:
         try
         {
-            dbc = new DatabaseCentre();
-            System.out.println("Server Started");
+            //dbc = new DatabaseCentre();
+            //System.out.println("Server Started");
+            
+            //RMI
+            //DatabaseRemoteInterface dri = (DatabaseRemoteInterface) Naming.lookup("rmi://localhost/DatabaseCentre");
         }
         catch (Exception e)
         {

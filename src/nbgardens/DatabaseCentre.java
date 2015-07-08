@@ -1,21 +1,14 @@
 package nbgardens;
-import NBGCoreSystems.DataController;
-import NBGCoreSystems.MessageHandling;
 import NBGCoreSystems.MessageHandling;
 import NBGCoreSystems.Product;
 import NBGCoreSystems.ProductStatus;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.*; 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -82,6 +75,9 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
             //String threadName = NBGCoreSystems.DataController.DateTime();
             //Thread t = new Thread(this,threadName);  
             //t.start();
+            //Assign the RMI Server name
+            productDatabase.add(new Product("Gnome",14,14,14,14));
+            
         }
         catch (Exception e)
         {
@@ -178,7 +174,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 		{
 			MessageHandling.ErrorHandle("DBCCNP01", "Unable to create SQL Statement", e, Level.ALL);
 		}
-                //TODO
+                
 		String defaultString = String.format(
                 "\"%s\",%s,%s,%s,%s,%s,%s",
                 inProduct.ProductName(),
@@ -265,14 +261,17 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
     {
         
     }
+    //#region SQL Methods
     
-    //TODO add SQL
-    public List<Product> ReadAllProducts() throws RemoteException
+    //#region Remote Methods
+    @Override
+    public List<Product> ReadAllProducts() 
     {
         return productDatabase;
     }
     
-    public Product ReadProduct(int inID) throws RemoteException
+    @Override
+    public Product ReadProduct(int inID) 
     {
         Product returnProduct = null;
         for(int i = 0; i < productDatabase.size();i++)
@@ -285,7 +284,8 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
         return returnProduct;
     }
     
-    public void CreateProduct(Product inProduct) throws RemoteException
+    @Override
+    public void CreateProduct(Product inProduct)
     {
         CreateProductSQL(inProduct);
     }
@@ -296,7 +296,8 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
         return returnMessage;
     }
     
-    public void UpdateProduct(Product inProduct) throws RemoteException
+    @Override
+    public void UpdateProduct(Product inProduct)
     {
         try
         {

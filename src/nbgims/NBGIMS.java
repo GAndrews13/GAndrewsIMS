@@ -5,6 +5,11 @@
  */
 package nbgims;
 
+import NBGCoreSystems.MessageHandling;
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.util.logging.Level;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import nbgardens.DatabaseCentre;
 import nbgardens.Interfaces.InitialScreen;
 
 /**
@@ -30,6 +36,29 @@ public class NBGIMS extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        try
+        {
+            DatabaseCentre dbc = new DatabaseCentre();
+            try
+            {
+                //Registry reg = LocateRegistry.getRegistry();
+                System.out.println("DBC registered on the registry started");
+                Registry reg = LocateRegistry.createRegistry(1099);
+                reg.bind("DatabaseCentre",dbc);
+                System.out.println("DBC registered on the registry");
+                //FIXME naming.rebind throwing errors
+                //Naming.rebind("DatabaseCentre",dbc);
+            }
+            catch (Exception e)
+            {
+                MessageHandling.ErrorHandle("NBGIMSM02", "Error registering Database Centre", e, Level.SEVERE);
+            }
+            
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("NBGIMSM01", "Error starting Database Centre", e, Level.SEVERE);
+        }
         launch(args);
     }
     
