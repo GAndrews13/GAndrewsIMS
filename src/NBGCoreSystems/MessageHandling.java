@@ -72,7 +72,7 @@ public class MessageHandling {
             JOptionPane.showMessageDialog(null,inMessage,errorString,JOptionPane.ERROR_MESSAGE);
         }
         catch (Exception e)
-        {  
+        {
            ErrorHandle("EH01",e);
         }
         return errorString;
