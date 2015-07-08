@@ -54,7 +54,7 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
 
         private char splitCharacter = '|';
 
-        private String databaseControllerIP;
+        private String databaseControllerIP = "localhost";
         public String DatabaseControllerIP() {
             return databaseControllerIP;
         }
@@ -72,16 +72,18 @@ public class DataController //extends UnicastRemoteObject implements DatabaseRem
     // </editor-comment desc="General Variables">
 
 
-
         // <editor-comment desc="Configuration file">
+        /**
+         * Generates a generic configuration file that contains the database controllers IP and the port used to connect to it
+         */
         public void CreateGeneralConfigFile()
         {
             MessageHandling.GeneralLog("DCCGC02", "Creating general config file");
             PrintWriter writer = null;
             try
             {
-                //writer = new PrintWriter(programDirectory + "\\" + configFileName, "UTF-8");
-                writer = new PrintWriter("C:\\\\users\\Gareth\\desktop\\" + configFileName, "UTF-8");
+                writer = new PrintWriter(programDirectory + "\\" + configFileName, "UTF-8");
+                //writer = new PrintWriter("C:\\\\users\\Gareth\\desktop\\" + configFileName, "UTF-8");
                 try
                 {
                     //TOOD Add custom config file data

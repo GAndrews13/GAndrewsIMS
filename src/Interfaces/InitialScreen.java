@@ -162,6 +162,7 @@ public class InitialScreen extends javax.swing.JFrame {
         try
         {
             dbc = new DatabaseCentre();
+            System.out.println("Server Started");
         }
         catch (Exception e)
         {
