@@ -77,6 +77,10 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
             //t.start();
             //Assign the RMI Server name
             productDatabase.add(new Product("Gnome",14,14,14,14));
+            productDatabase.add(new Product("Gnome2",15,15,15,15));
+            productDatabase.add(new Product("Gnome5",15,15,15,15));
+            productDatabase.add(new Product("Gnome67",15,15,15,15));
+            productDatabase.add(new Product("Gargoyle",13,13,13,13));
             
         }
         catch (Exception e)
@@ -130,7 +134,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductRecommendedLevel(),
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
-                inProduct.Status());
+                inProduct.ProductStatus());
             String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
             UpdateSQLSubmit("product",updateString, updateConditions);
 	}
@@ -183,7 +187,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductRecommendedLevel(),
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
-                inProduct.Status());
+                inProduct.ProductStatus());
 		try
 		{
 			statement.executeUpdate("INSERT INTO product (ProductName,Stock,RequiredStock,CriticalLevel,Cost,currentInOrder,ProductStatus) VALUE " + defaultString);
@@ -309,7 +313,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductRecommendedLevel(),
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
-                inProduct.Status());
+                inProduct.ProductStatus());
 		String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
 		UpdateSQLSubmit("product",defaultString, updateConditions);
 		}

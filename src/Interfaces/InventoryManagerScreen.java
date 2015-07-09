@@ -1,3 +1,5 @@
+package Interfaces;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +15,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import nbgardens.DatabaseCentre;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -21,13 +26,15 @@ import nbgardens.DatabaseCentre;
  */
 public class InventoryManagerScreen extends javax.swing.JFrame {
 
+    private DefaultTableModel productManagerTableModel;
+    
+    private DatabaseRemoteInterface dri;
     /**
      * Creates new form InventoryManagerScreen
      */
     public InventoryManagerScreen() {
         //Create the report directory if it doesn't exist
                 File directory = new File(System.getProperty("user.dir")+ "\\Reports\\");
-                DatabaseRemoteInterface dri;
 		try
 		{
 			directory.mkdir();
@@ -39,13 +46,22 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 try
                 {
                     dri = new DatabaseCentre();
+                    try
+                    {
+                        initComponents();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageHandling.ErrorHandle("IMS03", "Error creating UI", e, Level.ALL);
+                    }
                     List<Product> list =  dri.ReadAllProducts();
+                    populateTable(list);
+                    
                 }
                 catch (Exception e)
                 {
                         MessageHandling.ErrorHandle("IMS02", "Error creating interface with DatabaseCentre", e, Level.ALL);
                 }
-        initComponents();
     }
 
     /**
@@ -63,7 +79,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        productManagerTable = new javax.swing.JTable();
         label1 = new java.awt.Label();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
@@ -120,7 +136,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
         jTabbedPane1.setName("tabInterface"); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        productManagerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -129,7 +145,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
@@ -143,16 +159,16 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
+        productManagerTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(productManagerTable);
+        if (productManagerTable.getColumnModel().getColumnCount() > 0) {
+            productManagerTable.getColumnModel().getColumn(0).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(1).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(2).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(3).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(4).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(5).setResizable(false);
+            productManagerTable.getColumnModel().getColumn(6).setResizable(false);
         }
 
         label1.setFont(new java.awt.Font("Dialog", 3, 14)); // NOI18N
@@ -480,11 +496,35 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     }
     
     /**
-     * Fills the table with the appropiate information
+     * Fills the table with the information returned from the database
      */
-    public void populateTable(ArrayList<Product> inList)
+    public void populateTable(List<Product> inList)
     {
         //TODO call remote method to return and assign values to the table
+        try
+        {
+            for(Product p : inList)
+            {
+                System.out.println(p.toString());
+                Object[] rowData = p.PrepareForTable();  
+                //FIXME Throwing an error when trying to add data to the table
+                if(productManagerTableModel != null)
+                {
+                    System.out.println("Table Model Found");
+                    productManagerTableModel.addRow(rowData);
+                    System.out.println("Row Added");
+                }
+                else
+                {
+                    System.out.println("No Table Model");
+                    MessageHandling.PopUpMessage("TableModel Void", "Error with Table Model");
+                }
+            }
+        }
+        catch (Exception e)
+        {
+                MessageHandling.ErrorHandle("IMSPT01", "Problem setting up table with information requested", e, Level.SEVERE);
+        }
         
     }
 
@@ -504,7 +544,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton1;
     private java.awt.Label label1;
     private java.awt.Label label2;
@@ -513,6 +552,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     private java.awt.Label label5;
     private java.awt.Label label6;
     private java.awt.Label label7;
+    private javax.swing.JTable productManagerTable;
     private java.awt.TextField textField1;
     private java.awt.TextField textbox_ProductCost;
     private java.awt.TextField textbox_ProductCost1;

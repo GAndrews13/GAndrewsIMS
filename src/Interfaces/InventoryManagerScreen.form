@@ -218,7 +218,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable1">
+                <Component class="javax.swing.JTable" name="productManagerTable">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="7" rowCount="0">
@@ -226,9 +226,9 @@
                         <Column editable="false" title="Name" type="java.lang.String"/>
                         <Column editable="false" title="Stock" type="java.lang.Integer"/>
                         <Column editable="false" title="Cost" type="java.lang.Double"/>
-                        <Column editable="false" title="Status" type="java.lang.String"/>
+                        <Column editable="false" title="Status" type="java.lang.Object"/>
                         <Column editable="false" title="Recommended Level" type="java.lang.Integer"/>
-                        <Column editable="false" title="Critical Level" type="java.lang.Object"/>
+                        <Column editable="false" title="Critical Level" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

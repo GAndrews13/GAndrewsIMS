@@ -5,6 +5,7 @@
  */
 package nbgardens.Interfaces;
 
+import Interfaces.InventoryManagerScreen;
 import NBGCoreSystems.DatabaseRemoteInterface;
 import NBGCoreSystems.MessageHandling;
 import java.rmi.Naming;

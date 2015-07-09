@@ -18,15 +18,15 @@ public interface DatabaseRemoteInterface extends Remote {
     /**
      * Returns all database information
      */
-        public List<Product> ReadAllProducts();
+        public List<Product> ReadAllProducts() throws RemoteException;
     /**
      * Returns a certain products details
      */
-        public Product ReadProduct(int inID);
+        public Product ReadProduct(int inID) throws RemoteException;
     /**
      * Creates a new product
      */
-        public void CreateProduct(Product inProduct);
+        public void CreateProduct(Product inProduct) throws RemoteException;
     /**
      * Changes the state of a product
      */
@@ -34,5 +34,5 @@ public interface DatabaseRemoteInterface extends Remote {
     /**
      * Updates a products details after being changed
      */
-        public void UpdateProduct(Product inProduct);
+        public void UpdateProduct(Product inProduct) throws RemoteException;
 }

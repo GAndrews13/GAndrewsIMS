@@ -6,24 +6,26 @@ import java.util.List;
 import java.io.*;
 
 /*
-package NBGCoreSystems;
+ package NBGCoreSystems;
 
-/**
+ /**
  *Contains all relevant information that will be stored about products
  * @author gandrews
  */
 public class Product implements Serializable {
 
-    private int productID;
-    private String productName;
-    private int productStock;
-    private int productCriticalLevel;
-    private int productRecommendedLevel;
-    private Double productCost;
-    private int currentInOrder;
+    private int productID = 0;
+    private String productName = "";
+    //FIXME
+    private int productStock = 0;
+    //FIXME
+    private int productCriticalLevel = 0;
+    private int productRecommendedLevel = 0;
+    private Double productCost = 0.0;
+    private int currentInOrder = 0;
     private ProductStatus ProductStatus;
 
-    public ProductStatus Status() {
+    public ProductStatus ProductStatus() {
         return ProductStatus;
     }
 
@@ -57,12 +59,13 @@ public class Product implements Serializable {
         return productCost;
     }
 
-    public int CurrentInOrder()
-    {
+    public int CurrentInOrder() {
         return currentInOrder;
     }
+
     //</editor-fold desc="Getters">
     //</editor-fold desc="Setters">
+
     public void ProductID(int productID) {
         this.productID = productID;
     }
@@ -72,23 +75,22 @@ public class Product implements Serializable {
     }
 
     public void ProductStock(int productStockManipulator) {
-        this.productStock += productStock;
+        this.productStock += productStockManipulator;
     }
 
-    public void ProductCriticalLevel(int productCriticalLevel) {
-        this.productCriticalLevel = productCriticalLevel;
+    public void ProductCriticalLevel(int productCriticalLevelManipulator) {
+        this.productCriticalLevel = productCriticalLevelManipulator;
     }
 
-    public void ProductRecommendedLevel(int productRecommendedLevel) {
-        this.productRecommendedLevel = productRecommendedLevel;
+    public void ProductRecommendedLevel(int productRecommendedLevelManipulator) {
+        this.productRecommendedLevel = productRecommendedLevelManipulator;
     }
 
-    public void ProductCost(Double productCost) {
-        this.productCost = productCost;
+    public void ProductCost(Double productCostManipulator) {
+        this.productCost = productCostManipulator;
     }
 
-    public void CurrentInOrder(int currentInOrderManipulator)
-    {
+    public void CurrentInOrder(int currentInOrderManipulator) {
         currentInOrder += currentInOrderManipulator;
     }
     //</editor-fold desc="Setters">
@@ -96,134 +98,130 @@ public class Product implements Serializable {
 
     //<editor-fold desc="Methods">
     //<editor-fold desc="Constructors">
-
     /**
      * Create a full product including an ID
+     *
      * @param inProductID
      * @param inProductName
      * @param inProductStock
      * @param inProductCriticalLevel
      * @param inProductRecommendedLevel
-     * @param inProductCost 
+     * @param inProductCost
      */
-    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
-    {
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost) {
         ProductID(inProductID);
         ProductName(inProductName);
         ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
         ProductStatus(ProductStatus.InStock);
     }
-    
+
     /**
      * Create a full product including an ID and status
+     *
      * @param inProductID
      * @param inProductName
      * @param inProductStock
      * @param inProductCriticalLevel
      * @param inProductRecommendedLevel
-     * @param inProductCost 
+     * @param inProductCost
      * @param inStatus
      */
-    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus)
-    {
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus) {
         ProductID(inProductID);
         ProductName(inProductName);
         ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
         ProductStatus(inStatus);
     }
-    
+
     /**
      * Create a product and retrieve the ID from the database
      */
-    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
-    {
+    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost) {
         ProductName(inProductName);
         ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
+        ProductStatus(ProductStatus.InStock);
     }
+
     /**
      * Creates a new product from an object array
      */
-    public void Create(Object[] inArray)
-    {
-        if(inArray.length == 5)
-        {
+    public void Create(Object[] inArray) {
+        if (inArray.length == 5) {
             //ProductID(int.Parse(inArray[0].ToString()));
             ProductID(Integer.parseInt(inArray[0].toString()));
             ProductName(inArray[1].toString());
             ProductID(Integer.parseInt(inArray[2].toString()));
             ProductCriticalLevel(Integer.parseInt(inArray[3].toString()));
             ProductRecommendedLevel(Integer.parseInt(inArray[4].toString()));
-        }
-        else
-        {
+        } else {
             //TODO Throw Exception
             //throw new Exception("Recieved Array Not Of Correct Length");
         }
     }
+
     //</editor-fold desc="Constructors">
+
     /**
-     * Compares two instances of Product and returns true if share the same variables
+     * Compares two instances of Product and returns true if share the same
+     * variables
+     *
      * @param inProduct
-     * @return 
+     * @return
      */
-    public boolean Compare(Product inProduct)
-    {
+    public boolean Compare(Product inProduct) {
         boolean comparison = true;
-        while (comparison == true)
-        {
-            if(productID == inProduct.ProductID())
-            {
+        while (comparison == true) {
+            if (productID == inProduct.ProductID()) {
                 comparison = false;
             }
-            if(productName == inProduct.ProductName())
-            {
+            if (productName == inProduct.ProductName()) {
                 comparison = false;
             }
-            if(productStock == inProduct.ProductStock())
-            {
+            if (productStock == inProduct.ProductStock()) {
                 comparison = false;
             }
-            if(productRecommendedLevel == inProduct.ProductRecommendedLevel())
-            {
+            if (productRecommendedLevel == inProduct.ProductRecommendedLevel()) {
                 comparison = false;
             }
-            if(productCost == inProduct.ProductCost())
-            {
+            if (productCost == inProduct.ProductCost()) {
                 comparison = false;
             }
             break;
         }
         return comparison;
     }
+
     /**
      * Creates an object array ready for transmitting universally
-     * @return 
+     *
+     * @return
      */
-    public Object[] PrepareForTransmit()
-    {
-        Object[] returner = new Object[6];
+    public Object[] PrepareForTable() {
+        Object[] returner = new Object[7];
         returner[0] = ProductID();
         returner[1] = ProductName();
         returner[2] = ProductStock();
-        returner[3] = ProductCriticalLevel();
-        returner[4] = ProductRecommendedLevel();
-        returner[5] = ProductStatus;
+        returner[3] = ProductCost();
+        returner[4] = ProductStatus();
+        returner[5] = ProductRecommendedLevel();
+        returner[6] = ProductCriticalLevel();
         return returner;
     }
-    
+
     @Override
-    public String toString()
-    {
-        String formatString = "Name: %-30s ID: %-10i Stock: %-10i Cost: %-10d Critical Level: %-10i Recommended Level: %-10i  ";
-        return String.format(formatString, ProductName(), ProductID(), ProductStock(), ProductCost(),ProductCriticalLevel(), ProductRecommendedLevel());
+    public String toString() {
+        String formatString = "Name: %-30s ID: %-10s Stock: %-10s Cost: %-10s Critical Level: %-10s Recommended Level: %-10s  ";
+        return String.format(formatString, ProductName(), ProductID(), ProductStock(), ProductCost(), ProductCriticalLevel(), ProductRecommendedLevel());
     }
     //</editor-fold desc="Methods">
-
 
 }

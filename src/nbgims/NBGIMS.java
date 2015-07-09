@@ -41,13 +41,10 @@ public class NBGIMS extends Application {
             DatabaseCentre dbc = new DatabaseCentre();
             try
             {
-                //Registry reg = LocateRegistry.getRegistry();
                 System.out.println("DBC registered on the registry started");
                 Registry reg = LocateRegistry.createRegistry(1099);
                 reg.bind("DatabaseCentre",dbc);
                 System.out.println("DBC registered on the registry");
-                //FIXME naming.rebind throwing errors
-                //Naming.rebind("DatabaseCentre",dbc);
             }
             catch (Exception e)
             {
@@ -57,6 +54,7 @@ public class NBGIMS extends Application {
         }
         catch (Exception e)
         {
+            //FIXME
             MessageHandling.ErrorHandle("NBGIMSM01", "Error starting Database Centre", e, Level.SEVERE);
         }
         launch(args);
