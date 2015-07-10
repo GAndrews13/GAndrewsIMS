@@ -240,7 +240,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Stock", "Cost", "Status", "Minimum Stock", "Required Stock", "Porousware"
+                "ID", "Name", "Stock", "Cost", "Status", "Minimum Stock", "Recommended Stock", "Porousware"
             }
         ) {
             Class[] types = new Class [] {
@@ -507,12 +507,18 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
     }
     
-    private void updateTextBoxes(String inID, String inName, String inStock, String inCost, String inMinStock, String inRecStock, String inProductStatus, String inPorousware )
+    private void updateTextBoxes(String inID,
+            String inName,
+            String inStock,
+            String inCost,
+            String inProductStatus,
+            String inMinStock,
+            String inRecStock,
+            String inPorousware)
     {           
         textBoxProductID.setText(inID);
         textBoxProductName.setText(inName);
-        //TODO possible problem of changing table
-        textboxProductStock.setText(Integer.parseInt(inStock));
+        textboxProductStock.setText(inStock);
         textboxProductCost.setText(inCost);
         textboxMinimumStock.setText(inMinStock);
         textboxRecommendedStock.setText(inRecStock);
@@ -548,7 +554,15 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     
     private void updateTextBoxes(String[] inData)
     {
-        updateTextBoxes(inData[0],inData[1],inData[2],inData[3],inData[4],inData[5],inData[6],inData[7]);
+        updateTextBoxes(
+                inData[0], //ID
+                inData[1], //Name
+                inData[2], //Stock
+                inData[3], //Cost
+                inData[4], //Status
+                inData[5], //Minimum
+                inData[6], //Recommended
+                inData[7]); //Porous
     }
     
     private String[] getRow()
@@ -664,13 +678,14 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
              try
              {
                  System.out.println("creating product");
-                 Product tempProduct = new Product(
+                 Product tempProduct;
+                 tempProduct = new Product(
                          textBoxProductName.getText(),
-                         Integer.parseInt(textboxMinimumStock.getText()),
+                         Integer.parseInt(textboxProductStock.getText()),
                          Integer.parseInt(textboxMinimumStock.getText()),
                          Integer.parseInt(textboxRecommendedStock.getText()),
                          Double.parseDouble(textboxProductCost.getText()),
-                         //prodStatus,
+                         
                          ProductStatus.InStock,
                          porousware);
                  System.out.println("product created");
@@ -680,6 +695,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                  //Update remote records
                  
                  //Update UI
+               
                  refreshTable();
                 //setRow(new String[]{textBoxProductID.getText(),textBoxProductName.getText(),textboxProductStock.getText(),textboxProductCost.getText(),comboBoxProductStatus.toString(),textboxMinimumStock.getText(),textboxRecommendedStock.getText()});
              }
@@ -767,7 +783,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         }
         
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEditStock;
     private javax.swing.JCheckBox checkboxPorousware;
@@ -804,5 +820,5 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     private java.awt.TextField textboxProductStock;
     private java.awt.TextField textboxRecommendedStock;
     // End of variables declaration//GEN-END:variables
-    
+
 }

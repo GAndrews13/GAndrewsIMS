@@ -235,7 +235,7 @@
                         <Column editable="false" title="Cost" type="java.lang.Double"/>
                         <Column editable="false" title="Status" type="java.lang.String"/>
                         <Column editable="false" title="Minimum Stock" type="java.lang.Integer"/>
-                        <Column editable="false" title="Required Stock" type="java.lang.Integer"/>
+                        <Column editable="false" title="Recommended Stock" type="java.lang.Integer"/>
                         <Column editable="false" title="Porousware" type="java.lang.Boolean"/>
                       </Table>
                     </Property>

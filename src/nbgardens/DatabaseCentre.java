@@ -69,20 +69,9 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
     {
         try
         {
-            //System.out.println("Database Centre Initalized");
-            //avaliableSocket = new ServerSocket(serverPort);
-            //Relocate to appropiate area within code
-            //String threadName = NBGCoreSystems.DataController.DateTime();
-            //Thread t = new Thread(this,threadName);  
-            //t.start();
             //Assign the RMI Server name
             productDatabase.clear();
             readProductEntrysSQL();
-            //productDatabase.add(new Product(0,"Gnome",14,14,14,14));
-            //productDatabase.add(new Product(1,"Gnome2",15,15,15,15));
-            //productDatabase.add(new Product(2,"Gnome5",15,15,15,15));
-            //productDatabase.add(new Product(3,"Gnome67",15,15,15,15));
-            //productDatabase.add(new Product(4,"Gargoyle",13,13,13,13));
             
         }
         catch (Exception e)
@@ -129,14 +118,16 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 	try
 	{
             String updateString = String.format(
-                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,sinceLastPurchase=%s,currentInOrder=%s",
+                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,currentInOrder=%s,ProductStatus=%s,Porousware=%s",
                 inProduct.ProductName(),
                 inProduct.ProductStock(),
                 inProduct.ProductCriticalLevel(),
                 inProduct.ProductRecommendedLevel(),
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
-                inProduct.ProductStatus());
+                inProduct.ProductStatus(),
+                inProduct.Porousware()
+                        );
             String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
             UpdateSQLSubmit("product",updateString, updateConditions);
 	}
@@ -218,7 +209,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 	{
             MessageHandling.ErrorHandle("DBCRA01", "Error reading from database", e, Level.SEVERE);
 	}
-        String defaultString = "SELECT ProductID, ProductName, Stock, RequiredStock, CriticalLevel, Cost, sinceLastPurchase, currentInOrder, ProductStatus, Porousware FROM Product";
+        String defaultString = "SELECT ProductID, ProductName, Stock, RequiredStock, CriticalLevel, Cost, currentInOrder, ProductStatus, Porousware FROM Product";
         try
         {
             ResultSet results = statement.executeQuery(defaultString);
@@ -310,18 +301,19 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
         try
         {
                 String defaultString = String.format(
-                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,sinceLastPurchase=%s,currentInOrder=%s,ProductStatus=%s,Porousware=%s",
+                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,currentInOrder=%s,ProductStatus=%s,Porousware=%s",
                 inProduct.ProductName(),
                 inProduct.ProductStock(),
-                inProduct.ProductCriticalLevel(),
                 inProduct.ProductRecommendedLevel(),
+                inProduct.ProductCriticalLevel(),                
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
                 inProduct.ProductStatus(),
                 inProduct.Porousware()
                 );
-		String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
-		UpdateSQLSubmit("product",defaultString, updateConditions);
+                    String updateConditions;
+                    updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
+                    UpdateSQLSubmit("product",defaultString, updateConditions);
 		}
 		catch (Exception e)
 		{
