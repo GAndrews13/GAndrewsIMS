@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package NBGCoreSystems;
-import java.io.*;
 
 /**
  *
  * @author gandrews
  */
-public class ProductOrderLine implements Serializable
-{
+public class ProductOrderLine {
     private Product product;
     private int quantity;
     private double totalCost;

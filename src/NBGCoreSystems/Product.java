@@ -3,8 +3,6 @@ package NBGCoreSystems;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.io.*;
-
 /*
  package NBGCoreSystems;
 
@@ -12,7 +10,7 @@ import java.io.*;
  *Contains all relevant information that will be stored about products
  * @author gandrews
  */
-public class Product implements Serializable {
+public class Product {
 
     private int productID = 0;
     private String productName = "";
@@ -29,8 +27,8 @@ public class Product implements Serializable {
         return ProductStatus;
     }
 
-    public void ProductStatus(ProductStatus inStatus) {
-        this.ProductStatus = inStatus;
+    public void Status(String status) {
+        this.status = status;
     }
 
     //<editor-fold desc="Variable Manipulators">
@@ -136,13 +134,7 @@ public class Product implements Serializable {
         ProductCriticalLevel(inProductCriticalLevel);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
-        ProductStatus(inStatus);
     }
-
-    /**
-     * Create a product and retrieve the ID from the database
-     */
-    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost) {
         ProductName(inProductName);
         ProductStock(inProductStock);
         ProductCriticalLevel(inProductCriticalLevel);
@@ -205,15 +197,11 @@ public class Product implements Serializable {
      *
      * @return
      */
-    public Object[] PrepareForTable() {
-        Object[] returner = new Object[7];
-        returner[0] = ProductID();
-        returner[1] = ProductName();
-        returner[2] = ProductStock();
-        returner[3] = ProductCost();
-        returner[4] = ProductStatus();
-        returner[5] = ProductRecommendedLevel();
-        returner[6] = ProductCriticalLevel();
+
+    /**
+     * Create a product and retrieve the ID from the database
+     */
+    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost) {
         return returner;
     }
 
