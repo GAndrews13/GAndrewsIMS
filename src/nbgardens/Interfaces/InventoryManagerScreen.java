@@ -131,7 +131,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         textboxRecommendedStock = new java.awt.TextField();
         label7 = new java.awt.Label();
         label6 = new java.awt.Label();
-        jButton5 = new javax.swing.JButton();
+        buttonEditStock = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         textArea1 = new java.awt.TextArea();
@@ -315,10 +315,10 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         label6.setMinimumSize(new java.awt.Dimension(50, 50));
         label6.setText("Product Status:");
 
-        jButton5.setText("Edit Selected Product");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        buttonEditStock.setText("Edit Selected Product");
+        buttonEditStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                buttonEditStockActionPerformed(evt);
             }
         });
 
@@ -383,7 +383,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(buttonEditStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -425,7 +425,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoxProductStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonEditStock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -573,24 +573,43 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void buttonEditStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditStockActionPerformed
+    System.out.println("SystemStarting");
         try
         {
-        Product temp = new Product( 
+            String prodStatusString = comboBoxProductStatus.getSelectedItem().toString();
+            ProductStatus prodStatus;
+            switch(prodStatusString)
+            {
+            case "InStock":
+                prodStatus = ProductStatus.InStock;
+                break;
+            case "Discontinued":
+                prodStatus = ProductStatus.Discontinued;
+                break;
+            case "LowStock":
+                prodStatus = ProductStatus.LowStock;
+                break;
+                default:
+                prodStatus = ProductStatus.LowStock;
+            break;
+            }
+             System.out.println("creating product");
+            Product temp = new Product( 
                                     Integer.parseInt(textBoxProductID.getText()),                
                                     textBoxProductName.getText(),
                                     Integer.parseInt((textboxMinimumStock.getText())),
                                     Integer.parseInt(textboxMinimumStock.getText()),
                                     Integer.parseInt(textboxRecommendedStock.getText()),
                                     Double.parseDouble(textboxProductCost.getText().toString()),
-                                    ProductStatus.valueOf(comboBoxProductStatus.getSelectedItem().toString()));
+                                    ProductStatus.InStock);
         dri.UpdateProduct(temp);
         }
         catch (Exception e)
         {
                     MessageHandling.ErrorHandle("IMSUPB01", "Unable to connect to database to update product", e, Level.WARNING);
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_buttonEditStockActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         ClearTextBox();
@@ -666,12 +685,12 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEditStock;
     private javax.swing.JComboBox comboBoxProductStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -69,7 +69,8 @@ public class MessageHandling {
         String errorString = String.format(stringFormat, inError, inLocation);
         try
         {
-            JOptionPane.showMessageDialog(null,inMessage,errorString,JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null,inMessage,errorString,JOptionPane.ERROR_MESSAGE);
+            PopUpMessage(inLocation + ": Error Encountered" , inMessage);
         }
         catch (Exception e)
         {
