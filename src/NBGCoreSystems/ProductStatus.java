@@ -7,8 +7,8 @@ package NBGCoreSystems;
 
 /**
  *
- * @author Gareth
+ * @author gandrews
  */
 public enum ProductStatus {
-    InStock, Discontinued, LowStock, 
+    InStock,LowStock,OutOfStock,Discontinued
 }

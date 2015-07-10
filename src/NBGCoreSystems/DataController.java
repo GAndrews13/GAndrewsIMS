@@ -61,7 +61,10 @@ public class DataController
     
 
     // <editor-comment desc="Configuration file">
-    public void CreateGeneralConfigFile()
+        /**
+         * Generates a generic configuration file that contains the database controllers IP and the port used to connect to it
+         */
+    public void CreateGeneralConfigFile() 
     {
         MessageHandling.GeneralLog("DCCGC02", "Creating general config file");
         PrintWriter writer = null;
@@ -76,24 +79,10 @@ public class DataController
                 
                 writer.println("<ENDCONFIG>");
             }
-            CreateGeneralConfigFile();
-            ReadConfigFile();
-        }
-        // <editor-comment desc="General Variables">
-        private String programDirectory = System.getProperty("user.dir"); 
-        public String ProgramDirectory() {
-            return programDirectory;
-        }
-        private String configFileName = "config.NBG";
-
-        private char splitCharacter = '|';
-
-        private String databaseControllerIP = "localhost";
-        public String DatabaseControllerIP() {
-            return databaseControllerIP;
-        }
-        public void DatabaseControllerIP(String databaseControllerIP) {
-            this.databaseControllerIP = databaseControllerIP;
+            catch (Exception e)
+            {
+                MessageHandling.ErrorHandle("DCCGCF01","Cannot create general configuration file", e,Level.SEVERE);
+            }
         }
         catch (Exception e)
         {
@@ -103,48 +92,50 @@ public class DataController
         {
             writer.close();
         }
+    }
     // </editor-comment desc="General Variables">
 
-
-        // <editor-comment desc="Configuration file">
-        /**
-         * Generates a generic configuration file that contains the database controllers IP and the port used to connect to it
-         */
-        public void CreateGeneralConfigFile()
+        public void ReadConfigFile()
         {
-            FileReader fr = new FileReader(programDirectory + "\\" + configFileName);
-            BufferedReader textReader = new BufferedReader(fr);
-            List<String> text = new ArrayList<String>();
-            boolean ableToRead = true;
-            while (ableToRead == true)
+            try
             {
+                FileReader fr = new FileReader(programDirectory + "\\" + configFileName);
+                BufferedReader textReader = new BufferedReader(fr);
+                List<String> text = new ArrayList<String>();
+                String[] splitArray  = {};
+                boolean ableToRead = true;
+                while (ableToRead == true)
                 {
-                    splitArray = read.split(read, splitCharacter);
-                    
-                    //The title of the config line
-                    //Index 1 contains the data that needs to be acted on
-                    //read = splitArray[0];
-                    System.out.println(read.toString());
+                    String read = textReader.readLine();
+                    String splitString = ""+splitCharacter;
+                    if(read.contains(splitString))
+                    {
+                        splitArray = read.split(read, splitCharacter);
+
+                        //The title of the config line
+                        //Index 1 contains the data that needs to be acted on
+                        //read = splitArray[0];
+                        System.out.println(read.toString());
+                    }
+                    switch(read.trim())
+                            {
+                                case "<ENDCONFIG>":
+                                    ableToRead = false;
+                                break;
+                                case "databaseControllerIP":
+                                    databaseControllerIP = splitArray[3];
+                                    break;
+                                case "databaseControllerPort":
+                                    databaseControllerPort = Integer.parseInt(splitArray[3]);
+                                    break;
+                            }
                 }
-                switch(read.trim())
-                        {
-                            case "<ENDCONFIG>":
-                                ableToRead = false;
-                            break;
-                            case "databaseControllerIP":
-                                databaseControllerIP = splitArray[3];
-                                break;
-                            case "databaseControllerPort":
-                                databaseControllerPort = Integer.parseInt(splitArray[3]);
-                                break;
-                        }
+            }
+            catch (Exception e)
+            {
+                MessageHandling.ErrorHandle("DCRCF01", e, Level.SEVERE);
             }
         }
-        catch (Exception e)
-        {
-            MessageHandling.ErrorHandle("DCRCF01", e, Level.SEVERE);
-        }
-    }
     /**
      * Sends a message to the database controller
      */
@@ -203,14 +194,4 @@ public class DataController
         MessageHandling.PopUpMessage("Test Conducted", "Test message sent");
     }
 }
-                writer = new PrintWriter(programDirectory + "\\" + configFileName, "UTF-8");
-                //writer = new PrintWriter("C:\\\\users\\Gareth\\desktop\\" + configFileName, "UTF-8");
-                try
-                {
-                    //TOOD Add custom config file data
-                    writer.println("<STARTCONFIG>");
-                    writer.println("databaseControllerIP"+splitCharacter+"localhost");
-
-                    writer.println("<ENDCONFIG>");
-                }
-                catch (Exception e)
+                

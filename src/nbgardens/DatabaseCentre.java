@@ -56,7 +56,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
     static final String databaseDriver = "com.mysql.jdbc.Driver";
     //TODO add various levels of editability based on rights and user access patterns
     static String databaseUsername = "mUser";
-    static String databasePassword = "password";
+    static String databasePassword = "netbuilder";
     private Connection conn;
     private Statement statement;
     
@@ -76,11 +76,13 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
             //Thread t = new Thread(this,threadName);  
             //t.start();
             //Assign the RMI Server name
-            productDatabase.add(new Product("Gnome",14,14,14,14));
-            productDatabase.add(new Product("Gnome2",15,15,15,15));
-            productDatabase.add(new Product("Gnome5",15,15,15,15));
-            productDatabase.add(new Product("Gnome67",15,15,15,15));
-            productDatabase.add(new Product("Gargoyle",13,13,13,13));
+            productDatabase.clear();
+            readProductEntrysSQL();
+            //productDatabase.add(new Product(0,"Gnome",14,14,14,14));
+            //productDatabase.add(new Product(1,"Gnome2",15,15,15,15));
+            //productDatabase.add(new Product(2,"Gnome5",15,15,15,15));
+            //productDatabase.add(new Product(3,"Gnome67",15,15,15,15));
+            //productDatabase.add(new Product(4,"Gargoyle",13,13,13,13));
             
         }
         catch (Exception e)
@@ -216,7 +218,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 	{
             MessageHandling.ErrorHandle("DBCRA01", "Error reading from database", e, Level.SEVERE);
 	}
-        String defaultString = "SELECT ProductID, ProductName, Stock, RequiredStock, CriticalLevel, Cost, sinceLastPurchase, currentInOrder FROM Product";
+        String defaultString = "SELECT ProductID, ProductName, Stock, RequiredStock, CriticalLevel, Cost, sinceLastPurchase, currentInOrder, ProductStatus FROM Product";
         try
         {
             ResultSet results = statement.executeQuery(defaultString);
@@ -228,7 +230,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 		int prodReqStock = results.getInt("RequiredStock");
 		int prodCriticalLevel = results.getInt("CriticalLevel");
 		int prodCost = results.getInt("Cost");
-                String prodStatusString = results.getString("productStatus"); 
+                String prodStatusString = results.getString("ProductStatus"); 
                 ProductStatus prodStatus;
                 switch(prodStatusString)
                 {
@@ -247,6 +249,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 }
                 
                 Product tempProduct = new Product(prodID,prodName,prodStock,prodCriticalLevel,prodReqStock,prodCost,prodStatus);
+                tempProduct.ProductStatus(prodStatus);
                 productDatabase.add(tempProduct);
                 
             }

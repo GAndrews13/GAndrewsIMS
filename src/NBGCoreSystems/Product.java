@@ -27,8 +27,8 @@ public class Product {
         return ProductStatus;
     }
 
-    public void Status(String status) {
-        this.status = status;
+    public void ProductStatus(ProductStatus status) {
+        this.ProductStatus = status;
     }
 
     //<editor-fold desc="Variable Manipulators">
@@ -115,6 +115,19 @@ public class Product {
         ProductCost(inProductCost);
         ProductStatus(ProductStatus.InStock);
     }
+    
+    /**
+     * Creates a product without an ID which would be assigned by the database
+     */
+    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost)
+    {
+        ProductName(inProductName);
+        ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
+        ProductRecommendedLevel(inProductRecommendedLevel);
+        ProductCost(inProductCost);
+        ProductStatus(ProductStatus.InStock);
+    }     
 
     /**
      * Create a full product including an ID and status
@@ -134,30 +147,8 @@ public class Product {
         ProductCriticalLevel(inProductCriticalLevel);
         ProductRecommendedLevel(inProductRecommendedLevel);
         ProductCost(inProductCost);
-    }
-        ProductName(inProductName);
-        ProductStock(inProductStock);
-        ProductCriticalLevel(inProductCriticalLevel);
-        ProductRecommendedLevel(inProductRecommendedLevel);
-        ProductCost(inProductCost);
-        ProductStatus(ProductStatus.InStock);
-    }
-
-    /**
-     * Creates a new product from an object array
-     */
-    public void Create(Object[] inArray) {
-        if (inArray.length == 5) {
-            //ProductID(int.Parse(inArray[0].ToString()));
-            ProductID(Integer.parseInt(inArray[0].toString()));
-            ProductName(inArray[1].toString());
-            ProductID(Integer.parseInt(inArray[2].toString()));
-            ProductCriticalLevel(Integer.parseInt(inArray[3].toString()));
-            ProductRecommendedLevel(Integer.parseInt(inArray[4].toString()));
-        } else {
-            //TODO Throw Exception
-            //throw new Exception("Recieved Array Not Of Correct Length");
-        }
+        ProductStatus(inStatus);
+    
     }
 
     //</editor-fold desc="Constructors">
@@ -193,17 +184,24 @@ public class Product {
     }
 
     /**
-     * Creates an object array ready for transmitting universally
-     *
-     * @return
+     * Creates an object array ready for putting into the table
      */
+    public Object[] PrepareForTable()
+    {
+        Object[] returner = new Object[7];
+        returner[0] = this.ProductID();
+        returner[1] = this.ProductName();
+        returner[2] = this.ProductStock();
+        returner[3] = this.ProductCost();
+        returner[4] = this.ProductStatus();        
+        returner[5] = this.ProductCriticalLevel();        
+        returner[6] = this.ProductRecommendedLevel();        
+        return returner;
+    }
 
     /**
      * Create a product and retrieve the ID from the database
      */
-    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost) {
-        return returner;
-    }
 
     @Override
     public String toString() {

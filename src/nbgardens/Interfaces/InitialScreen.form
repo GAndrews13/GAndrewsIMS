@@ -27,23 +27,14 @@
           <Component id="jButton2" alignment="0" max="32767" attributes="0"/>
           <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
           <Component id="label1" alignment="0" pref="576" max="32767" attributes="0"/>
-          <Component id="jButton4" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="textbox_databaseControllerIPInput" max="32767" attributes="0"/>
-                  <Component id="button1" pref="450" max="32767" attributes="0"/>
+                  <Component id="textbox_databaseControllerIPInput" pref="0" max="32767" attributes="0"/>
+                  <Component id="button1" pref="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="textbox_databaseControllerIPPort" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="jButton5" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
+              <Component id="textbox_databaseControllerIPPort" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,18 +48,14 @@
               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="83" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="textbox_databaseControllerIPInput" min="-2" max="-2" attributes="0"/>
                   <Component id="textbox_databaseControllerIPPort" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="button1" min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+              <Component id="button1" min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -115,17 +102,11 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton4">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Test"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="java.awt.TextField" name="textbox_databaseControllerIPInput">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="10.50.15.35"/>
+        <Property name="visible" type="boolean" value="false"/>
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
@@ -133,7 +114,9 @@
     </Component>
     <Component class="java.awt.Button" name="button1">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="label" type="java.lang.String" value="Set Database Controller"/>
+        <Property name="visible" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
@@ -141,16 +124,10 @@
     </Component>
     <Component class="java.awt.TextField" name="textbox_databaseControllerIPPort">
       <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="3306"/>
+        <Property name="visible" type="boolean" value="false"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Start Server"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>
