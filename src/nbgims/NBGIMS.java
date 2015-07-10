@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import nbgardens.DatabaseCentre;
-import nbgardens.Interfaces.InitialScreen;
+import Interfaces.InitialScreen;
 
 /**
  *
