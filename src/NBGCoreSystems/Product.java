@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Product {
 
-    private int productID = 0;
+    private int productID;
     private String productName = "";
     //FIXME
     private int productStock = 0;
@@ -22,7 +22,22 @@ public class Product {
     private Double productCost = 0.0;
     private int currentInOrder = 0;
     private ProductStatus ProductStatus;
-
+    private boolean porousware = false;
+    
+    public boolean Porousware()
+    {
+        return porousware;
+    }
+    
+    public void Porousware(boolean inBool)
+    {
+        porousware = inBool;
+    }
+    
+    
+    
+    
+    
     public ProductStatus ProductStatus() {
         return ProductStatus;
     }
@@ -150,6 +165,28 @@ public class Product {
         ProductStatus(inStatus);
     
     }
+    
+    public Product(int inProductID, String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus, boolean inBool) {
+        ProductID(inProductID);
+        ProductName(inProductName);
+        ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
+        ProductRecommendedLevel(inProductRecommendedLevel);
+        ProductCost(inProductCost);
+        ProductStatus(inStatus);
+        Porousware(inBool);
+    }
+    
+    public Product(String inProductName, int inProductStock, int inProductCriticalLevel, int inProductRecommendedLevel, double inProductCost, ProductStatus inStatus, boolean inBool) {
+        
+        ProductName(inProductName);
+        ProductStock(inProductStock);
+        ProductCriticalLevel(inProductCriticalLevel);
+        ProductRecommendedLevel(inProductRecommendedLevel);
+        ProductCost(inProductCost);
+        ProductStatus(inStatus);
+        Porousware(inBool);
+    }
 
     //</editor-fold desc="Constructors">
 
@@ -188,7 +225,7 @@ public class Product {
      */
     public Object[] PrepareForTable()
     {
-        Object[] returner = new Object[7];
+        Object[] returner = new Object[8];
         returner[0] = this.ProductID();
         returner[1] = this.ProductName();
         returner[2] = this.ProductStock();
@@ -196,6 +233,7 @@ public class Product {
         returner[4] = this.ProductStatus();        
         returner[5] = this.ProductCriticalLevel();        
         returner[6] = this.ProductRecommendedLevel();        
+        returner[7] = this.Porousware();
         return returner;
     }
 
@@ -205,8 +243,8 @@ public class Product {
 
     @Override
     public String toString() {
-        String formatString = "Name: %-30s ID: %-10s Stock: %-10s Cost: %-10s Critical Level: %-10s Recommended Level: %-10s  ";
-        return String.format(formatString, ProductName(), ProductID(), ProductStock(), ProductCost(), ProductCriticalLevel(), ProductRecommendedLevel());
+        String formatString = "Name: %-30s ID: %-10s Stock: %-10s Cost: %-10s Critical Level: %-10s Recommended Level: %-10s  Porousware: %-10s";
+        return String.format(formatString, ProductName(), ProductID(), ProductStock(), ProductCost(), ProductCriticalLevel(), ProductRecommendedLevel(), Porousware());
     }
     //</editor-fold desc="Methods">
 

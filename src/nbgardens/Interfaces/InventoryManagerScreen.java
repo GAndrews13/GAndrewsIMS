@@ -85,8 +85,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     {
                         MessageHandling.ErrorHandle("IMS03", "Error creating UI", e, Level.ALL);
                     }
-                    List<Product> list =  dri.ReadAllProducts();
-                    populateTable(list);
+                    refreshTable();
                     
                 }
                 catch (Exception e)
@@ -137,6 +136,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         textArea1 = new java.awt.TextArea();
         comboBoxProductStatus = new javax.swing.JComboBox();
         jButton6 = new javax.swing.JButton();
+        checkboxPorousware = new javax.swing.JCheckBox();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -237,17 +237,17 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
         productManagerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Name", "Stock", "Cost", "Status", "Minimum Stock", "Required Stock"
+                "ID", "Name", "Stock", "Cost", "Status", "Minimum Stock", "Required Stock", "Porousware"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -338,6 +338,9 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             }
         });
 
+        checkboxPorousware.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        checkboxPorousware.setText("Has Porousware");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -348,10 +351,13 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(20, 20, 20))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textArea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                    .addComponent(buttonEditStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(checkboxPorousware, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +368,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                                                         .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                            .addComponent(label7, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -379,12 +385,9 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                                             .addComponent(textboxProductStock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(textboxRecommendedStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(textBoxProductID, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(buttonEditStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -424,14 +427,16 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoxProductStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkboxPorousware, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
                 .addComponent(buttonEditStock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(1, 1, 1)
-                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
@@ -441,8 +446,9 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -475,6 +481,19 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void refreshTable()
+    {
+        try
+        {
+            List<Product> list =  dri.ReadAllProducts();
+            populateTable(list);
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("IMSRT01", "Error refreshing table", e, Level.ALL);
+        }
+    }
+    
     private void ClearTextBox()
     {
         textBoxProductID.setText("");
@@ -484,17 +503,28 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         textboxMinimumStock.setText("");
         textboxRecommendedStock.setText("");
         comboBoxProductStatus.setSelectedItem(0);
+        checkboxPorousware.setSelected(false);
 
     }
     
-    private void updateTextBoxes(String inID, String inName, String inStock, String inCost, String inMinStock, String inRecStock, String inProductStatus )
+    private void updateTextBoxes(String inID, String inName, String inStock, String inCost, String inMinStock, String inRecStock, String inProductStatus, String inPorousware )
     {           
         textBoxProductID.setText(inID);
         textBoxProductName.setText(inName);
-        textboxProductStock.setText(inStock);
+        //TODO possible problem of changing table
+        textboxProductStock.setText(Integer.parseInt(inStock));
         textboxProductCost.setText(inCost);
         textboxMinimumStock.setText(inMinStock);
         textboxRecommendedStock.setText(inRecStock);
+        //System.out.println("KEY:" + inPorousware);
+        if(inPorousware == "true")
+        {
+            checkboxPorousware.setSelected(true);
+        }
+        else
+        {
+            checkboxPorousware.setSelected(false);
+        }
         switch(inProductStatus)
         {
             case "InStock":
@@ -513,21 +543,48 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 comboBoxProductStatus.setSelectedItem(0);
                 break;
         }
+        
     }
     
     private void updateTextBoxes(String[] inData)
     {
-        updateTextBoxes(inData[0],inData[1],inData[2],inData[3],inData[4],inData[5],inData[6]);
+        updateTextBoxes(inData[0],inData[1],inData[2],inData[3],inData[4],inData[5],inData[6],inData[7]);
     }
     
     private String[] getRow()
     {
-        String[] Result = new String[7];
-        for(int i = 0;i<7;i++)
+        String[] Result = new String[productManagerTable.getRowCount()];
+        for(int i = 0;i<productManagerTable.getModel().getColumnCount();i++)
         {
             Result[i] = productManagerTable.getModel().getValueAt(productManagerTable.getSelectedRow(),i).toString();
         }
         return Result;
+    }
+    
+    private void setRow(Object[] inStrings)
+    {
+        DefaultTableModel temp = (DefaultTableModel)  productManagerTable.getModel();
+        temp.setValueAt(inStrings[0], productManagerTable.getSelectedRow(),0);
+        temp.setValueAt(inStrings[1], productManagerTable.getSelectedRow(),1);
+        temp.setValueAt(inStrings[2], productManagerTable.getSelectedRow(),2);
+        temp.setValueAt(inStrings[3], productManagerTable.getSelectedRow(),3);
+        temp.setValueAt(inStrings[4], productManagerTable.getSelectedRow(),4);
+        temp.setValueAt(inStrings[5], productManagerTable.getSelectedRow(),5);
+        temp.setValueAt(inStrings[6], productManagerTable.getSelectedRow(),6);
+        temp.setValueAt(inStrings[7], productManagerTable.getSelectedRow(),7);
+        /*
+        for(int i = 0; i<productManagerTable.getModel().getColumnCount();i++)
+        {
+            //System.out.println(inStrings[i]);
+            //System.out.println(i);
+            //System.out.println(productManagerTable.getSelectedRow());
+            
+            //temp.setValueAt(inStrings[i], productManagerTable.getSelectedRow(),i);
+            temp.setValueAt("hi",productManagerTable.getSelectedRow(),i);
+                        
+        }
+        */
+        productManagerTable.setModel(temp);
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -594,16 +651,43 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 prodStatus = ProductStatus.LowStock;
             break;
             }
-             System.out.println("creating product");
-            Product temp = new Product( 
-                                    Integer.parseInt(textBoxProductID.getText()),                
-                                    textBoxProductName.getText(),
-                                    Integer.parseInt((textboxMinimumStock.getText())),
-                                    Integer.parseInt(textboxMinimumStock.getText()),
-                                    Integer.parseInt(textboxRecommendedStock.getText()),
-                                    Double.parseDouble(textboxProductCost.getText().toString()),
-                                    ProductStatus.InStock);
-        dri.UpdateProduct(temp);
+            boolean porousware;
+            if(checkboxPorousware.isSelected())
+            {
+                porousware = true;
+            }
+            else
+            {
+                porousware = false;
+            }
+             
+             try
+             {
+                 System.out.println("creating product");
+                 Product tempProduct = new Product(
+                         textBoxProductName.getText(),
+                         Integer.parseInt(textboxMinimumStock.getText()),
+                         Integer.parseInt(textboxMinimumStock.getText()),
+                         Integer.parseInt(textboxRecommendedStock.getText()),
+                         Double.parseDouble(textboxProductCost.getText()),
+                         //prodStatus,
+                         ProductStatus.InStock,
+                         porousware);
+                 System.out.println("product created");
+                //Update Local records
+                 dri.UpdateProduct(tempProduct);
+                 
+                 //Update remote records
+                 
+                 //Update UI
+                 refreshTable();
+                //setRow(new String[]{textBoxProductID.getText(),textBoxProductName.getText(),textboxProductStock.getText(),textboxProductCost.getText(),comboBoxProductStatus.toString(),textboxMinimumStock.getText(),textboxRecommendedStock.getText()});
+             }
+             catch (Exception e)
+             {
+                         MessageHandling.PopUpMessage("Error changing table", "Data could not be input into the table: " + e.getMessage());
+             }
+             
         }
         catch (Exception e)
         {
@@ -686,6 +770,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEditStock;
+    private javax.swing.JCheckBox checkboxPorousware;
     private javax.swing.JComboBox comboBoxProductStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
