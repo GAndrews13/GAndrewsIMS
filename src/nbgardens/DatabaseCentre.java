@@ -106,17 +106,23 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
         try
         {
             conn.close();
+            System.out.println("Connection To database closed");
         }
         catch (Exception e)
         {
             MessageHandling.ErrorHandle("DBCCC02", "Closing Database Connection failed", e, Level.SEVERE);
         }
     }
-    
+    @Deprecated
     public void UpdateProductSQL(Product inProduct)
     {
 	try
 	{
+            String porouswareBool = "0";
+            if(inProduct.Porousware())
+            {
+                porouswareBool = "1";
+            }
             String updateString = String.format(
                 "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,currentInOrder=%s,ProductStatus=%s,Porousware=%s",
                 inProduct.ProductName(),
@@ -126,7 +132,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
                 inProduct.ProductStatus(),
-                inProduct.Porousware()
+                porouswareBool
                         );
             String updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
             UpdateSQLSubmit("product",updateString, updateConditions);
@@ -148,6 +154,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 	{
             statement = conn.createStatement();
             String updateString = String.format("UPDATE %s SET %s WHERE %s; ", inTable, inRequest, inCondition);
+            System.out.println(updateString);
             statement.executeUpdate(updateString);
 	}
 	catch (Exception e)
@@ -172,6 +179,11 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 			MessageHandling.ErrorHandle("DBCCNP01", "Unable to create SQL Statement", e, Level.ALL);
 		}
                 
+                String porouswareBool = "0";
+                if(inProduct.Porousware())
+                {
+                    porouswareBool = "1";
+                }
 		String defaultString = String.format(
                 "\"%s\",%s,%s,%s,%s,%s,%s",
                 inProduct.ProductName(),
@@ -179,8 +191,9 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductCriticalLevel(),
                 inProduct.ProductRecommendedLevel(),
                 inProduct.ProductCost(),
-                inProduct.CurrentInOrder(),
-                inProduct.ProductStatus());
+                inProduct.ProductStatus(),
+                porouswareBool
+                );
 		try
 		{
 			statement.executeUpdate("INSERT INTO product (ProductName,Stock,RequiredStock,CriticalLevel,Cost,currentInOrder,ProductStatus) VALUE " + defaultString);
@@ -299,9 +312,23 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
     public void UpdateProduct(Product inProduct)
     {
         try
-        {
+        {   
+            for(int i = 0; i < productDatabase.size();i++)
+            {
+                if(productDatabase.get(i).ProductID() == inProduct.ProductID())
+                {
+                    productDatabase.set(i, inProduct);
+                }
+            }
+            //Update the Local database
+            //Update the SQL
+                String porouswareBool = "0";
+                if(inProduct.Porousware())
+                {
+                    porouswareBool = "1";
+                }
                 String defaultString = String.format(
-                "ProductName=\"%s\",Stock=%s,RequiredStock=%s,CriticalLevel=%s,Cost=%s,currentInOrder=%s,ProductStatus=%s,Porousware=%s",
+                "ProductName='%s', Stock=%s, RequiredStock=%s, CriticalLevel=%s, Cost=%s, currentInOrder=%s, ProductStatus='%s', Porousware=%s",
                 inProduct.ProductName(),
                 inProduct.ProductStock(),
                 inProduct.ProductRecommendedLevel(),
@@ -309,10 +336,10 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 inProduct.ProductCost(),
                 inProduct.CurrentInOrder(),
                 inProduct.ProductStatus(),
-                inProduct.Porousware()
+                porouswareBool
                 );
                     String updateConditions;
-                    updateConditions = "productID = " + Integer.toString(inProduct.ProductID());
+                    updateConditions = "productID=" + Integer.toString(inProduct.ProductID());
                     UpdateSQLSubmit("product",defaultString, updateConditions);
 		}
 		catch (Exception e)

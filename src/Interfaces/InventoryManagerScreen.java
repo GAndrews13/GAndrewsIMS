@@ -359,17 +359,15 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                             .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel7Layout.createSequentialGroup()
-                                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel7Layout.createSequentialGroup()
+                                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, Short.MAX_VALUE))
-                                            .addComponent(label7, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                                    .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(label7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel7Layout.createSequentialGroup()
                                         .addComponent(label6, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(20, 20, 20)))
@@ -447,7 +445,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -456,10 +454,12 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Product Manager", jPanel4);
+
+        jTabbedPane1.setSelectedComponent(jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -473,7 +473,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Produict Manager");
@@ -487,6 +487,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         {
             List<Product> list =  dri.ReadAllProducts();
             populateTable(list);
+            System.out.println("Table updated");
         }
         catch (Exception e)
         {
@@ -680,6 +681,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                  System.out.println("creating product");
                  Product tempProduct;
                  tempProduct = new Product(
+                         Integer.parseInt(textBoxProductID.getText()),
                          textBoxProductName.getText(),
                          Integer.parseInt(textboxProductStock.getText()),
                          Integer.parseInt(textboxMinimumStock.getText()),
@@ -691,11 +693,10 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                  System.out.println("product created");
                 //Update Local records
                  dri.UpdateProduct(tempProduct);
-                 
+                 MessageHandling.PopUpMessage("Product Updated", "Product (" + tempProduct.ProductID()+") " + tempProduct.ProductName() + " has been updated");
                  //Update remote records
                  
                  //Update UI
-               
                  refreshTable();
                 //setRow(new String[]{textBoxProductID.getText(),textBoxProductName.getText(),textboxProductStock.getText(),textboxProductCost.getText(),comboBoxProductStatus.toString(),textboxMinimumStock.getText(),textboxRecommendedStock.getText()});
              }
@@ -759,6 +760,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         //TODO call remote method to return and assign values to the table
         try
         {
+            //productManagerTableModel.setNumRows(0);
             productManagerTableModel = (DefaultTableModel) productManagerTable.getModel();
             productManagerTableModel.setRowCount(0);
             for(Product p : inList)
@@ -776,6 +778,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     MessageHandling.PopUpMessage("TableModel Void", "Error with Table Model");
                 }
             }
+            //productManagerTable.setModel(productManagerTableModel);
         }
         catch (Exception e)
         {
