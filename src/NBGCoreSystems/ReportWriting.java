@@ -76,7 +76,7 @@ public class ReportWriting {
         returner[0][2] = "Product Stock";
         returner[0][3] = "Product Critical Level";
         returner[0][4] = "Product Recommended Level";
-        returner[0][5] = "Product Cost (£)";
+        returner[0][5] = "Product Cost ";
         returner[0][6] = "Product Current in Order";
         returner[0][7] = "Product Status";
         returner[0][8] = "Porousware Status";
@@ -105,7 +105,7 @@ public class ReportWriting {
         returner[0][0] = "Product ID";
         returner[0][1] = "Product Name";
         returner[0][2] = "Product Quantity";
-        returner[0][3] = "Cost (£)";
+        returner[0][3] = "Cost ";
         for(int i = 0;i<inProductOrderLines.size();i++)
         {
             returner[i+1][0] = Integer.toString(inProductOrderLines.get(i).Product().ProductID());
@@ -166,7 +166,7 @@ public class ReportWriting {
             document.templater().replace("TITLE",title);
             document.templater().replace("SUBTITLE",inSupplier);
             document.templater().replace("DATE",dateTime);
-            document.templater().replace("TOTALCOST","Total Cost: £" + Double.toString(inProductOrderLines.TotalCost()));
+            document.templater().replace("TOTALCOST","Total Cost: " + Double.toString(inProductOrderLines.TotalCost()));
             //ADD data
             document.templater().replace("TABLE1",productOrderListToDoubleArray(inProductOrderLines.ProductList()));
             
