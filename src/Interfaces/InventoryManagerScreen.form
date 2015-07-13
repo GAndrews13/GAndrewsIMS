@@ -39,10 +39,10 @@
       <Dimension value="[1440, 1080]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1440, 1080]"/>
+      <Dimension value="[1440, 800]"/>
     </Property>
     <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1440, 1080]"/>
+      <Dimension value="[1440, 800]"/>
     </Property>
   </Properties>
   <SyntheticProperties>

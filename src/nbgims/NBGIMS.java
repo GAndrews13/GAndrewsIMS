@@ -19,6 +19,14 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import nbgardens.DatabaseCentre;
 import Interfaces.InitialScreen;
+import java.io.IOException;
+
+//Java FX Imports
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
@@ -27,9 +35,16 @@ import Interfaces.InitialScreen;
 public class NBGIMS extends Application {
     
     @Override
-    public void start(Stage primaryStage) {
-        InitialScreen screen = new InitialScreen();
-        screen.setVisible(true);
+    public void start(Stage primaryStage) throws IOException {
+        
+        Parent root = FXMLLoader.load(getClass().getResource("InitialScren.java"));
+
+        primaryStage.setTitle("NBGardens IMS System");
+        primaryStage.setScene(new Scene(root,1080,800));
+        primaryStage.show();
+        
+        //InitialScreen screen = new InitialScreen();
+        //screen.setVisible(true);
     }
 
     /**
@@ -49,15 +64,14 @@ public class NBGIMS extends Application {
             catch (Exception e)
             {
                 MessageHandling.ErrorHandle("NBGIMSM02", "Error registering Database Centre", e, Level.SEVERE);
-            }
-            
+            }   
         }
         catch (Exception e)
         {
-            //FIXME
             MessageHandling.ErrorHandle("NBGIMSM01", "Error starting Database Centre", e, Level.SEVERE);
         }
         launch(args);
+         //Application.launch(InitialScreen.class, args);
     }
     
 }

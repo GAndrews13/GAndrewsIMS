@@ -200,8 +200,8 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1440, 1080));
-        setMinimumSize(new java.awt.Dimension(1440, 1080));
-        setPreferredSize(new java.awt.Dimension(1440, 1080));
+        setMinimumSize(new java.awt.Dimension(1440, 800));
+        setPreferredSize(new java.awt.Dimension(1440, 800));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Inventory Management System");
