@@ -11,8 +11,8 @@ package NBGCoreSystems;
  */
 public class ProductOrderLine {
     private Product product;
-    private int quantity;
-    private double totalCost;
+    private int quantity = 0;
+    private double totalCost = 0;
     
     public Product Product() {
         return product;
@@ -29,6 +29,7 @@ public class ProductOrderLine {
 
     public void Product(Product product) {
         this.product = product;
+        CalculateTotalCost();
     }
 
     public void Quantity(int quantity) {

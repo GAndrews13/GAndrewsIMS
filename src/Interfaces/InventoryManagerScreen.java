@@ -9,9 +9,12 @@ package Interfaces;
 import NBGCoreSystems.DatabaseRemoteInterface;
 import NBGCoreSystems.MessageHandling;
 import NBGCoreSystems.Product;
+import NBGCoreSystems.ProductOrderLine;
 import NBGCoreSystems.ProductStatus;
 import NBGCoreSystems.ReportWriting;
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -20,9 +23,11 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 import javax.swing.table.DefaultTableModel;
 import nbgardens.DatabaseCentre;
 import javax.swing.table.TableModel;
+import nbgardens.ProductOrder;
 
 /**
  *
@@ -53,6 +58,36 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     try
                     {
                         initComponents();
+                        jPanel7.getRootPane().setDefaultButton(button_UpdateProduct);
+                        jPanel7.getRootPane().addKeyListener(new KeyListener() {
+
+                            @Override
+                            public void keyTyped(KeyEvent e) {
+                                if(e.getKeyCode() == KeyEvent.VK_TAB)
+                                {
+                                    if(checkboxPorousware.isSelected())
+                                    {
+                                        checkboxPorousware.setSelected(false);
+                                    }
+                                    else
+                                    {
+                                        checkboxPorousware.setSelected(true);
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void keyPressed(KeyEvent e) {
+                                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
+
+                            @Override
+                            public void keyReleased(KeyEvent e) {
+                                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            }
+                        });
+                        productManagerTable.getSelectionModel().setSelectionMode(SINGLE_SELECTION);
+                        
                         productManagerTable.addMouseListener(new MouseListener() {
 
                             @Override
@@ -132,7 +167,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         textboxRecommendedStock = new java.awt.TextField();
         label7 = new java.awt.Label();
         label6 = new java.awt.Label();
-        buttonEditStock = new javax.swing.JButton();
+        button_UpdateProduct = new javax.swing.JButton();
         button_CreateNewProduct = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         textArea1 = new java.awt.TextArea();
@@ -189,7 +224,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 885, Short.MAX_VALUE))
+                .addGap(0, 945, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Database Controls", jPanel5);
@@ -232,7 +267,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(752, Short.MAX_VALUE))
+                .addContainerGap(812, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reports", jPanel6);
@@ -317,10 +352,10 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         label6.setMinimumSize(new java.awt.Dimension(50, 50));
         label6.setText("Product Status:");
 
-        buttonEditStock.setText("Edit Selected Product");
-        buttonEditStock.addActionListener(new java.awt.event.ActionListener() {
+        button_UpdateProduct.setText("Edit Selected Product");
+        button_UpdateProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEditStockActionPerformed(evt);
+                button_UpdateProductActionPerformed(evt);
             }
         });
 
@@ -353,7 +388,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(20, 20, 20))
-                    .addComponent(buttonEditStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_UpdateProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(button_CreateNewProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -430,7 +465,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkboxPorousware, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(buttonEditStock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(button_UpdateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(button_CreateNewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -448,17 +483,15 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jTabbedPane1.addTab("Product Manager", jPanel4);
@@ -621,6 +654,29 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //TODO add in product creation and editing
+        ReportWriting rw = new ReportWriting("Purchase Order");
+        try
+        {
+            List<Product> list = dri.ReadAllProducts();
+            List<ProductOrderLine> PLOList = new ArrayList<ProductOrderLine>();
+            for(Product p : list)
+            {
+                if(p.ProductStock() <= p.ProductCriticalLevel())
+                {
+                    ProductOrderLine pol = new ProductOrderLine();
+                    pol.Product(p);
+                    pol.Quantity(p.ProductCriticalLevel() - p.ProductStock());
+                    PLOList.add(pol);
+                }
+            }
+            ProductOrder po = new ProductOrder();
+            po.ProductList((ArrayList<ProductOrderLine>) PLOList);
+            rw.information(po, "NBG Supplier");
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("IMSJ3A2","Error reading stock information",e,Level.WARNING);            
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
@@ -645,7 +701,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void buttonEditStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditStockActionPerformed
+    private void button_UpdateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_UpdateProductActionPerformed
         try
         {
             String prodStatusString = comboBoxProductStatus.getSelectedItem().toString();
@@ -707,7 +763,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         {
                     MessageHandling.ErrorHandle("IMSUPB01", "Unable to connect to database to update product", e, Level.WARNING);
         }
-    }//GEN-LAST:event_buttonEditStockActionPerformed
+    }//GEN-LAST:event_button_UpdateProductActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         ClearTextBox();
@@ -783,8 +839,8 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonEditStock;
     private javax.swing.JButton button_CreateNewProduct;
+    private javax.swing.JButton button_UpdateProduct;
     private javax.swing.JCheckBox checkboxPorousware;
     private javax.swing.JComboBox comboBoxProductStatus;
     private javax.swing.JButton jButton1;

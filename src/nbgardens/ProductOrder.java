@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ProductOrder {
     private ArrayList<ProductOrderLine> productList = new ArrayList<ProductOrderLine>();
-    private double totalCost;
+    private double totalCost = 0;
 
     public List<ProductOrderLine> ProductList() {
         return productList;
@@ -23,6 +23,10 @@ public class ProductOrder {
 
     public void ProductList(ArrayList<ProductOrderLine> productList) {
         this.productList = productList;
+        for(ProductOrderLine p: productList)
+        {
+            totalCost += p.Quantity()*p.Product().ProductCost();
+        }
     }
     public void addProduct(ProductOrderLine inOrderLine)
     {

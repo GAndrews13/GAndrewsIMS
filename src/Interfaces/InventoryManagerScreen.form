@@ -114,7 +114,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jToggleButton1" min="-2" pref="43" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="885" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="945" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -156,7 +156,7 @@
                       <Component id="jButton3" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace pref="752" max="32767" attributes="0"/>
+                      <EmptySpace pref="812" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -202,21 +202,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="606" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="620" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" min="-2" pref="930" max="-2" attributes="0"/>
-                          <Component id="jPanel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
+                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -306,7 +303,7 @@
                                   <Component id="jButton6" max="32767" attributes="0"/>
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="buttonEditStock" alignment="0" max="32767" attributes="0"/>
+                              <Component id="button_UpdateProduct" alignment="0" max="32767" attributes="0"/>
                               <Component id="button_CreateNewProduct" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -409,7 +406,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="checkboxPorousware" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Component id="buttonEditStock" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="button_UpdateProduct" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="button_CreateNewProduct" min="-2" pref="37" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -578,12 +575,12 @@
                     <Property name="text" type="java.lang.String" value="Product Status:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="buttonEditStock">
+                <Component class="javax.swing.JButton" name="button_UpdateProduct">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Edit Selected Product"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditStockActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button_UpdateProductActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="button_CreateNewProduct">

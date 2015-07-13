@@ -58,10 +58,10 @@ public class ReportWriting {
     }
     
     //Allows you to assign a list of product orders to be included in a product order line
-    public void information(List<ProductOrder> inOrders,String inSupplier)
+    public void information(ProductOrder inOrders,String inSupplier)
     {
         //data = inOrders;        
-        writeToDocumentPOL(inOrders);
+        writeToDocumentPOL(inOrders,inSupplier);
     }
     
     /**
@@ -76,32 +76,43 @@ public class ReportWriting {
         returner[0][2] = "Product Stock";
         returner[0][3] = "Product Critical Level";
         returner[0][4] = "Product Recommended Level";
-        returner[0][5] = "Product Cost";
+        returner[0][5] = "Product Cost (£)";
         returner[0][6] = "Product Current in Order";
         returner[0][7] = "Product Status";
         returner[0][8] = "Porousware Status";
                 
         //Actual Code
-        for(int i = 1;i<inProducts.size();i++)
+        for(int i = 0;i<inProducts.size();i++)
         {
-            returner[i][0] = Integer.toString(inProducts.get(i).ProductID());
-            returner[i][1] = inProducts.get(i).ProductName();
-            returner[i][2] = Integer.toString(inProducts.get(i).ProductStock());
-            returner[i][3] = Integer.toString(inProducts.get(i).ProductCriticalLevel());
-            returner[i][4] = Integer.toString(inProducts.get(i).ProductRecommendedLevel());
-            returner[i][5] = Double.toString(inProducts.get(i).ProductCost());
-            returner[i][6] = Integer.toString(inProducts.get(i).CurrentInOrder());
-            returner[i][7] = inProducts.get(i).ProductStatus().toString();
-            returner[i][8] = Boolean.toString(inProducts.get(i).Porousware());
+            returner[i+1][0] = Integer.toString(inProducts.get(i).ProductID());
+            returner[i+1][1] = inProducts.get(i).ProductName();
+            returner[i+1][2] = Integer.toString(inProducts.get(i).ProductStock());
+            returner[i+1][3] = Integer.toString(inProducts.get(i).ProductCriticalLevel());
+            returner[i+1][4] = Integer.toString(inProducts.get(i).ProductRecommendedLevel());
+            returner[i+1][5] = Double.toString(inProducts.get(i).ProductCost());
+            returner[i+1][6] = Integer.toString(inProducts.get(i).CurrentInOrder());
+            returner[i+1][7] = inProducts.get(i).ProductStatus().toString();
+            returner[i+1][8] = Boolean.toString(inProducts.get(i).Porousware());
         }
         return returner;
     }
     
     
     
-    private String[][] productOrderListToDoubleArray(List<ProductOrder> inProductOrderLines)
+    private String[][] productOrderListToDoubleArray(List<ProductOrderLine> inProductOrderLines)
     {
-        String[][] returner = new String[0][9];
+        String[][] returner = new String[inProductOrderLines.size()+1][4];
+        returner[0][0] = "Product ID";
+        returner[0][1] = "Product Name";
+        returner[0][2] = "Product Quantity";
+        returner[0][3] = "Cost (£)";
+        for(int i = 0;i<inProductOrderLines.size();i++)
+        {
+            returner[i+1][0] = Integer.toString(inProductOrderLines.get(i).Product().ProductID());
+            returner[i+1][1] = inProductOrderLines.get(i).Product().ProductName();
+            returner[i+1][2] = Integer.toString(inProductOrderLines.get(i).Quantity());
+            returner[i+1][3] = Double.toString(inProductOrderLines.get(i).TotalCost());
+        }
         return returner;
     }
             
@@ -121,6 +132,7 @@ public class ReportWriting {
             document.templater().replace("TITLE",title);
             document.templater().replace("SUBTITLE",additionalTitle);
             document.templater().replace("DATE",dateTime);
+            document.templater().replace("TOTALCOST","");
             //ADD data
             document.templater().replace("TABLE1",productListToDoubleArray(inProducts));
             
@@ -143,7 +155,7 @@ public class ReportWriting {
      * Writes product order lines to the template
      * @param inProducts 
      */
-    private void writeToDocumentPOL(List<ProductOrder> inProductOrderLines)
+    private void writeToDocumentPOL(ProductOrder inProductOrderLines, String inSupplier)
     {
         //http://templater.info/downloads
         try
@@ -153,10 +165,11 @@ public class ReportWriting {
             ITemplateDocument document = Configuration.factory().open(inputTemplate, "docx", boas);
             
             document.templater().replace("TITLE",title);
-            document.templater().replace("SUBTITLE",additionalTitle);
-            document.templater().replace("DATETIME",dateTime);
+            document.templater().replace("SUBTITLE",inSupplier);
+            document.templater().replace("DATE",dateTime);
+            document.templater().replace("TOTALCOST","Total Cost: £" + Double.toString(inProductOrderLines.TotalCost()));
             //ADD data
-            document.templater().replace("TABLE1",productOrderListToDoubleArray(inProductOrderLines));
+            document.templater().replace("TABLE1",productOrderListToDoubleArray(inProductOrderLines.ProductList()));
             
             document.flush();
             
