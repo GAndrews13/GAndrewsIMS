@@ -10,6 +10,7 @@ import NBGCoreSystems.DatabaseRemoteInterface;
 import NBGCoreSystems.MessageHandling;
 import NBGCoreSystems.Product;
 import NBGCoreSystems.ProductStatus;
+import NBGCoreSystems.ReportWriting;
 import java.awt.Desktop;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import nbgardens.DatabaseCentre;
@@ -30,7 +32,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
     private DefaultTableModel productManagerTableModel;
     
-    private DatabaseRemoteInterface dri;
+    private static DatabaseRemoteInterface dri;
     /**
      * Creates new form InventoryManagerScreen
      */
@@ -131,7 +133,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         label7 = new java.awt.Label();
         label6 = new java.awt.Label();
         buttonEditStock = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        button_CreateNewProduct = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         textArea1 = new java.awt.TextArea();
         comboBoxProductStatus = new javax.swing.JComboBox();
@@ -322,7 +324,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Create New Product");
+        button_CreateNewProduct.setText("Create New Product");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Log");
@@ -352,7 +354,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                         .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(20, 20, 20))
                     .addComponent(buttonEditStock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(button_CreateNewProduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(checkboxPorousware, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -430,13 +432,15 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(buttonEditStock, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(button_CreateNewProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
+
+        button_CreateNewProduct.setVisible(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -487,7 +491,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         {
             List<Product> list =  dri.ReadAllProducts();
             populateTable(list);
-            System.out.println("Table updated");
         }
         catch (Exception e)
         {
@@ -523,7 +526,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         textboxProductCost.setText(inCost);
         textboxMinimumStock.setText(inMinStock);
         textboxRecommendedStock.setText(inRecStock);
-        //System.out.println("KEY:" + inPorousware);
         if(inPorousware == "true")
         {
             checkboxPorousware.setSelected(true);
@@ -587,18 +589,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         temp.setValueAt(inStrings[5], productManagerTable.getSelectedRow(),5);
         temp.setValueAt(inStrings[6], productManagerTable.getSelectedRow(),6);
         temp.setValueAt(inStrings[7], productManagerTable.getSelectedRow(),7);
-        /*
-        for(int i = 0; i<productManagerTable.getModel().getColumnCount();i++)
-        {
-            //System.out.println(inStrings[i]);
-            //System.out.println(i);
-            //System.out.println(productManagerTable.getSelectedRow());
-            
-            //temp.setValueAt(inStrings[i], productManagerTable.getSelectedRow(),i);
-            temp.setValueAt("hi",productManagerTable.getSelectedRow(),i);
-                        
-        }
-        */
         productManagerTable.setModel(temp);
     }
     
@@ -617,6 +607,16 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //TODO add in report creation
+        ReportWriting rw = new ReportWriting("Stock Report");
+        try
+        {
+            List<Product> list =  dri.ReadAllProducts();
+            rw.information(list);
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("IMSJ3A1","Error reading stock information",e,Level.WARNING);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -646,7 +646,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void buttonEditStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditStockActionPerformed
-    System.out.println("SystemStarting");
         try
         {
             String prodStatusString = comboBoxProductStatus.getSelectedItem().toString();
@@ -678,7 +677,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
              
              try
              {
-                 System.out.println("creating product");
                  Product tempProduct;
                  tempProduct = new Product(
                          Integer.parseInt(textBoxProductID.getText()),
@@ -690,10 +688,9 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                          
                          ProductStatus.InStock,
                          porousware);
-                 System.out.println("product created");
                 //Update Local records
                  dri.UpdateProduct(tempProduct);
-                 MessageHandling.PopUpMessage("Product Updated", "Product (" + tempProduct.ProductID()+") " + tempProduct.ProductName() + " has been updated");
+                 //MessageHandling.PopUpMessage("Product Updated", "Product (" + tempProduct.ProductID()+") " + tempProduct.ProductName() + " has been updated");
                  //Update remote records
                  
                  //Update UI
@@ -765,7 +762,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             productManagerTableModel.setRowCount(0);
             for(Product p : inList)
             {
-                //System.out.println(p.toString());
                 Object[] rowData = p.PrepareForTable();  
                 
                 if(productManagerTableModel != null)
@@ -774,7 +770,6 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 }
                 else
                 {
-                    System.out.println("No Table Model");
                     MessageHandling.PopUpMessage("TableModel Void", "Error with Table Model");
                 }
             }
@@ -789,12 +784,12 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEditStock;
+    private javax.swing.JButton button_CreateNewProduct;
     private javax.swing.JCheckBox checkboxPorousware;
     private javax.swing.JComboBox comboBoxProductStatus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

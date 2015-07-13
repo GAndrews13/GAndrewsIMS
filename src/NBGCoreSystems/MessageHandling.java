@@ -59,6 +59,22 @@ public class MessageHandling {
         }
         return errorString;
     }
+    
+    /**
+     * Logs an error message but does not display a warning to the user
+     * @param inLocation
+     * @param inError
+     * @param inLevel
+     * @param inDisplay 
+     */
+    public static void ErrorHandle(String inLocation, Exception inError, Level inLevel, boolean inDisplay)
+    {
+        logger.log(inLevel,inError.toString());
+        if(inDisplay == true)
+        {
+            ErrorHandle(inLocation, inError,inLevel);
+        }
+    }
     /**
      * 
     */
@@ -105,5 +121,23 @@ public class MessageHandling {
     public static void PopUpMessage(String inTitle, String inMessage)
     {
         JOptionPane.showMessageDialog(null,inMessage,inTitle,JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void stockIncrease(Product inProduct, int inQuantity)
+    {
+        String updateString = String.format("Product (%s) %s has been updated: the stock has increased by %s to %s",inProduct.ProductID(),inProduct.ProductName(),inQuantity,inProduct.ProductStock());
+        JOptionPane.showMessageDialog(null,updateString,"Product Stock has increased",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public static void stockLow(Product inProduct)
+    {
+        String updateString = String.format("Product stock on product (%s) %s has gone below critical level at: %s (Critical Level: %s)", inProduct.ProductID(), inProduct.ProductName(), inProduct.ProductStock(), inProduct.ProductCriticalLevel() );
+        JOptionPane.showMessageDialog(null, updateString, "Product Stock Is Low", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void mismatchedValues(Product inProduct)
+    {
+        String updateString = String.format("The products recommended stock level (%s) is set lower than its minimum level (%s). \n\r Please set the recommended stock to a value higher than the minimum level", inProduct.ProductRecommendedLevel(),inProduct.ProductCriticalLevel());
+        JOptionPane.showMessageDialog(null,updateString, "Product information mistmatched",JOptionPane.ERROR_MESSAGE);
     }
 }

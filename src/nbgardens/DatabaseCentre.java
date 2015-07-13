@@ -154,7 +154,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 	{
             statement = conn.createStatement();
             String updateString = String.format("UPDATE %s SET %s WHERE %s; ", inTable, inRequest, inCondition);
-            System.out.println(updateString);
+            
             statement.executeUpdate(updateString);
 	}
 	catch (Exception e)
@@ -317,6 +317,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
             {
                 if(productDatabase.get(i).ProductID() == inProduct.ProductID())
                 {
+                    productCheck(inProduct, i);
                     productDatabase.set(i, inProduct);
                 }
             }
@@ -346,5 +347,34 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
 		{
                     MessageHandling.ErrorHandle("BDCUP01", "Error updating product", e, Level.SEVERE);
 		}
+    }
+    
+    /**
+     * Checks the products for logic errors
+     */
+    public void productCheck(Product inProduct,int inInt)
+    {
+        try
+        {
+            //Error problems
+            if(inProduct.ProductRecommendedLevel() < inProduct.ProductCriticalLevel())
+            {
+                MessageHandling.mismatchedValues(inProduct);
+                throw new Exception ("Mismatch error");
+            }
+            //Flag messages
+            if(inProduct.ProductStock() > productDatabase.get(inInt).ProductStock())
+            {
+                MessageHandling.stockIncrease(inProduct, inProduct.ProductStock()-productDatabase.get(inInt).ProductStock());
+            }
+            if(inProduct.ProductStock()<=inProduct.ProductCriticalLevel())
+            {
+                MessageHandling.stockLow(inProduct);
+            }
+        }
+        catch (Exception e)
+        {
+            MessageHandling.ErrorHandle("DBCPC01", e, Level.FINE,false);
+        }
     }
 }
