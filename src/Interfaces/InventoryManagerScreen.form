@@ -81,7 +81,16 @@
     </Component>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Properties>
+        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1080, 800]"/>
+        </Property>
+        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[800, 600]"/>
+        </Property>
         <Property name="name" type="java.lang.String" value="tabInterface" noResource="true"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[1080, 800]"/>
+        </Property>
         <Property name="selectedComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="jPanel4"/>
         </Property>
@@ -105,7 +114,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jToggleButton1" pref="1016" max="32767" attributes="0"/>
+                      <Component id="jToggleButton1" pref="1065" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -114,7 +123,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jToggleButton1" min="-2" pref="43" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="945" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="706" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -143,7 +152,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="jButton2" alignment="0" pref="1026" max="32767" attributes="0"/>
+                  <Component id="jButton2" alignment="0" pref="1075" max="32767" attributes="0"/>
                   <Component id="jButton3" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
@@ -156,7 +165,7 @@
                       <Component id="jButton3" min="-2" pref="52" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="54" max="-2" attributes="0"/>
-                      <EmptySpace pref="812" max="32767" attributes="0"/>
+                      <EmptySpace pref="573" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -189,6 +198,11 @@
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
+          <Properties>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[1080, 777]"/>
+            </Property>
+          </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
               <JTabbedPaneConstraints tabName="Product Manager">
@@ -203,17 +217,20 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="620" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="659" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="744" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -239,7 +256,7 @@
                         <Column editable="false" title="Porousware" type="java.lang.Boolean"/>
                       </Table>
                     </Property>
-                    <Property name="autoResizeMode" type="int" value="4"/>
+                    <Property name="autoResizeMode" type="int" value="1"/>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -283,6 +300,9 @@
                           <Renderer/>
                         </Column>
                       </TableColumnModel>
+                    </Property>
+                    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                      <Color id="Default Cursor"/>
                     </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
@@ -412,8 +432,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="textArea1" min="-2" pref="371" max="-2" attributes="0"/>
-                          <EmptySpace pref="47" max="32767" attributes="0"/>
+                          <Component id="textArea1" min="-2" pref="183" max="-2" attributes="0"/>
+                          <EmptySpace pref="235" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

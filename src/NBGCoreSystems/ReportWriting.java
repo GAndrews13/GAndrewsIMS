@@ -116,7 +116,6 @@ public class ReportWriting {
         return returner;
     }
             
-            
     /**
      * Writes the information provided to a document
      */

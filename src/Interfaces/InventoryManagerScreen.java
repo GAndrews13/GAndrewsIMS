@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import static javax.swing.ListSelectionModel.SINGLE_SELECTION;
 import javax.swing.table.DefaultTableModel;
@@ -203,7 +204,10 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         jLabel1.setText("Inventory Management System");
         jLabel1.setToolTipText("");
 
+        jTabbedPane1.setMaximumSize(new java.awt.Dimension(1080, 800));
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(800, 600));
         jTabbedPane1.setName("tabInterface"); // NOI18N
+        jTabbedPane1.setPreferredSize(new java.awt.Dimension(1080, 800));
 
         jToggleButton1.setText("Server Accepting Requests");
         jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -217,14 +221,14 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 1016, Short.MAX_VALUE)
+                .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 1065, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 945, Short.MAX_VALUE))
+                .addGap(0, 706, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Database Controls", jPanel5);
@@ -255,7 +259,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 1026, Short.MAX_VALUE)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 1075, Short.MAX_VALUE)
             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
@@ -267,10 +271,12 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(812, Short.MAX_VALUE))
+                .addContainerGap(573, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Reports", jPanel6);
+
+        jPanel4.setMaximumSize(new java.awt.Dimension(1080, 777));
 
         productManagerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -295,7 +301,8 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        productManagerTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        productManagerTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        productManagerTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         productManagerTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(productManagerTable);
 
@@ -471,8 +478,8 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addComponent(textArea1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         button_CreateNewProduct.setVisible(false);
@@ -484,14 +491,16 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 744, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         jTabbedPane1.addTab("Product Manager", jPanel4);
@@ -503,14 +512,14 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 956, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE))
         );
 
         jTabbedPane1.getAccessibleContext().setAccessibleName("Produict Manager");
