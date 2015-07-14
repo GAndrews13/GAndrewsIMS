@@ -317,7 +317,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
             {
                 if(productDatabase.get(i).ProductID() == inProduct.ProductID())
                 {
-                    productCheck(inProduct, i);
+                     productCheck(inProduct, i);
                     productDatabase.set(i, inProduct);
                 }
             }

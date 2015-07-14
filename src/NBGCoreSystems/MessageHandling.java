@@ -1,5 +1,6 @@
 package NBGCoreSystems;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -122,19 +123,42 @@ public class MessageHandling {
     {
         JOptionPane.showMessageDialog(null,inMessage,inTitle,JOptionPane.ERROR_MESSAGE);
     }
-    
+
+    /**
+     * Displays a message alerting the IMS user that the stock of a certain product has been updated
+     * @param inProduct
+     * @param inQuantity 
+     */
     public static void stockIncrease(Product inProduct, int inQuantity)
     {
         String updateString = String.format("Product (%s) %s has been updated: the stock has increased by %s to %s",inProduct.ProductID(),inProduct.ProductName(),inQuantity,inProduct.ProductStock());
         JOptionPane.showMessageDialog(null,updateString,"Product Stock has increased",JOptionPane.INFORMATION_MESSAGE);
     }
     
+    public static void stockIncrease(List<ProductOrderLine> inPOLs)
+    {
+        String finalString = "";
+        for(ProductOrderLine pol : inPOLs)
+        {
+            String updateString = String.format("Product (%s) %s has been updated: the stock has increased by %s to %s",pol.Product().ProductID(),pol.Product().ProductName(),pol.Quantity(),pol.Product().ProductStock());    
+        }
+        JOptionPane.showMessageDialog(null,finalString,"Product Stock has increased",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    
+    /**
+     * Displays a message alerting a user that a certain piece of stock is low
+     */
     public static void stockLow(Product inProduct)
     {
         String updateString = String.format("Product stock on product (%s) %s has gone below critical level at: %s (Critical Level: %s)", inProduct.ProductID(), inProduct.ProductName(), inProduct.ProductStock(), inProduct.ProductCriticalLevel() );
         JOptionPane.showMessageDialog(null, updateString, "Product Stock Is Low", JOptionPane.ERROR_MESSAGE);
     }
     
+    /**
+     * Alerts the user that data edited for the product is incorrect and needs reformatting
+     * @param inProduct 
+     */
     public static void mismatchedValues(Product inProduct)
     {
         String updateString = String.format("The products recommended stock level (%s) is set lower than its minimum level (%s). \n\r Please set the recommended stock to a value higher than the minimum level", inProduct.ProductRecommendedLevel(),inProduct.ProductCriticalLevel());
