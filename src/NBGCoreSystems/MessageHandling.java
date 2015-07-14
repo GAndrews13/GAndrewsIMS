@@ -140,7 +140,8 @@ public class MessageHandling {
         String finalString = "";
         for(ProductOrderLine pol : inPOLs)
         {
-            String updateString = String.format("Product (%s) %s has been updated: the stock has increased by %s to %s",pol.Product().ProductID(),pol.Product().ProductName(),pol.Quantity(),pol.Product().ProductStock());    
+            String updateString = String.format("Product (%s) %s has been updated: the stock has increased by %s to %s %n",pol.Product().ProductID(),pol.Product().ProductName(),pol.Quantity(),pol.Product().ProductStock());    
+            finalString += updateString;
         }
         JOptionPane.showMessageDialog(null,finalString,"Product Stock has increased",JOptionPane.INFORMATION_MESSAGE);
     }
@@ -154,6 +155,17 @@ public class MessageHandling {
         String updateString = String.format("Product stock on product (%s) %s has gone below critical level at: %s (Critical Level: %s)", inProduct.ProductID(), inProduct.ProductName(), inProduct.ProductStock(), inProduct.ProductCriticalLevel() );
         JOptionPane.showMessageDialog(null, updateString, "Product Stock Is Low", JOptionPane.ERROR_MESSAGE);
     }
+    
+    public static void stockLow(List<ProductOrderLine> inPOLs)
+    {
+        String finalString = "";
+        for(ProductOrderLine pol : inPOLs)
+        {
+            String updateString = String.format("Product stock on product (%s) %s has gone below critical level at: %s (Critical Level: %s) %n", pol.Product().ProductID(), pol.Product().ProductName(), pol.Product().ProductStock(), pol.Product().ProductCriticalLevel());
+            finalString += updateString;
+        }
+        
+        JOptionPane.showMessageDialog(null, finalString, "Product Stock Is Low", JOptionPane.ERROR_MESSAGE);    }
     
     /**
      * Alerts the user that data edited for the product is incorrect and needs reformatting
