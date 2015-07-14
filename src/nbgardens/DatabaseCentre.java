@@ -254,7 +254,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 }
                 
                 Product tempProduct = new Product(prodID,prodName,prodStock,prodCriticalLevel,prodReqStock,prodCost,prodStatus,prodPorousware);
-                tempProduct.ProductStatus(prodStatus);
+                //tempProduct.ProductStatus(prodStatus);
                 productDatabase.add(tempProduct);
                 
             }
