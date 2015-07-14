@@ -121,7 +121,6 @@ public class ReportWriting {
      */
     private void writeToDocument(List<Product> inProducts)
     {
-        //http://templater.info/downloads
         try
         {
             ByteArrayOutputStream boas = new ByteArrayOutputStream();
@@ -156,7 +155,6 @@ public class ReportWriting {
      */
     private void writeToDocumentPOL(ProductOrder inProductOrderLines, String inSupplier)
     {
-        //http://templater.info/downloads
         try
         {
             ByteArrayOutputStream boas = new ByteArrayOutputStream();
