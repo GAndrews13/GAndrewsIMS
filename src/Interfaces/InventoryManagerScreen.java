@@ -371,6 +371,11 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
         });
 
         button_CreateNewProduct.setText("Create New Product");
+        button_CreateNewProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button_CreateNewProductActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Log");
@@ -486,7 +491,7 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
                 .addContainerGap(235, Short.MAX_VALUE))
         );
 
-        button_CreateNewProduct.setVisible(false);
+        button_CreateNewProduct.setVisible(true);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -781,6 +786,57 @@ public class InventoryManagerScreen extends javax.swing.JFrame {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         ClearTextBox();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void button_CreateNewProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button_CreateNewProductActionPerformed
+        // FIXME opposite
+        //FIXME PROGRAM NOT RUNNING CORRECTLY
+        if(textBoxProductID.getText().trim() == "")
+        {
+            int option = JOptionPane.showConfirmDialog(null,"Would you like to clear the product information boxes to create a new product?","New Product",JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION)
+            {
+                ClearTextBox();
+            }
+        }
+        else
+        {
+            try
+            {
+                //if(textBoxProductName.getText() !="" || textboxProductStock.getText() != "" || textboxRecommendedStock.getText() != "" || textboxMinimumStock.getText() != "" || textboxProductCost.getText() != "")
+                {
+                //    MessageHandling.PopUpMessage("Error With Text Fields", "One or more of your fields have incorrect values in");
+                }
+                //else
+                {
+                    boolean porousware;
+                    if(checkboxPorousware.isSelected())
+                    {
+                        porousware = true;
+                    }
+                    else
+                    {
+                        porousware = false;
+                    }
+                    Product tempProduct;
+                         tempProduct = new Product(
+                                 textBoxProductName.getText(),
+                                 Integer.parseInt(textboxProductStock.getText()),
+                                 Integer.parseInt(textboxMinimumStock.getText()),
+                                 Integer.parseInt(textboxRecommendedStock.getText()),
+                                 Double.parseDouble(textboxProductCost.getText()),
+                                 ProductStatus.InStock,
+                                 porousware);
+                    dri.CreateProduct(tempProduct);
+                    MessageHandling.PopUpMessage("Product Created", "Created: " + textBoxProductName.getText());
+                }
+            }
+            catch (Exception e)
+            {
+                MessageHandling.ErrorHandle("IMSCNPB01", "Error creating new product", e, Level.WARNING);
+            }
+        }
+        refreshTable();
+    }//GEN-LAST:event_button_CreateNewProductActionPerformed
 
     /**
      * @param args the command line arguments

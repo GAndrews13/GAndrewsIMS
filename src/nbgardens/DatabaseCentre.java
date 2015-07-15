@@ -167,7 +167,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
     /**
      * Creates a new product in the database
      */
-    public void CreateProductSQL(Product inProduct)
+    private void CreateProductSQL(Product inProduct)
 	{
 		createConnection();
 		try
@@ -196,7 +196,7 @@ implements NBGCoreSystems.DatabaseRemoteInterface {
                 );
 		try
 		{
-			statement.executeUpdate("INSERT INTO product (ProductName,Stock,RequiredStock,CriticalLevel,Cost,currentInOrder,ProductStatus) VALUE " + defaultString);
+			statement.executeUpdate("INSERT INTO product (ProductName,Stock,RequiredStock,CriticalLevel,Cost,ProductStatus,Porousware) VALUES (" + defaultString + ")" ) ;
 		}
 		catch (Exception e)
 		{
