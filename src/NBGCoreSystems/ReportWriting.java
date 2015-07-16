@@ -167,7 +167,6 @@ public class ReportWriting {
             document.templater().replace("TOTALCOST","Total Cost: " + Double.toString(inProductOrderLines.TotalCost()));
             //ADD data
             document.templater().replace("TABLE1",productOrderListToDoubleArray(inProductOrderLines.ProductList()));
-            
             document.flush();
             
             byte[] results = boas.toByteArray();
@@ -179,7 +178,7 @@ public class ReportWriting {
         }
         catch (Exception e)
         {
-            MessageHandling.ErrorHandle("RWWD01","Could not create report", e, Level.SEVERE);
+            MessageHandling.ErrorHandle("RWWD01","Could not create report", e, Level.WARNING);
         }
     }
     
